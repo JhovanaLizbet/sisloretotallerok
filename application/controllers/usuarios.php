@@ -14,7 +14,7 @@ class Usuarios extends CI_Controller // herencia
 		else
 		{
 			$data['msg']=$this->uri->segment(3); // 			
-			$this->load->view('crearcuenta',$data); //llama a   login.php
+			$this->load->view('login',$data); //llama a   login.php
 										//en este caso llama a  crearcuenta.php
 		}		
 	}

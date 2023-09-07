@@ -95,13 +95,15 @@
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
-                    <tr>
+                    <tr align="center">
                       <th>No</th>
                       <th>Nombre</th>
                       <th>CI</th>
+                      <th>Fecha de Nacimiento</th>
                       <th>Genero</th>
-                      <th>Edad</th>
                       <th>Direccion</th>
+                      <th>Email</th>
+                      <th>Celular</th>
                       <th>Fecha Creacion</th>
                       <th>Fecha Actualizacion</th>
                       <th>Modificar</th>
@@ -121,9 +123,11 @@
                   <td><?php echo $indice; ?></td> <!--//el id es interno por tanto no se muestra por tanto manejamos contadores-->
                   <td><?php echo $row->nombre." ".$row->primerApellido." ".$row->segundoApellido; ?></td>
                   <td><?php echo $row->ci; ?></td>
+                  <td><?php echo $row->fechaNacimiento; ?></td>
                   <td><?php echo $row->genero; ?></td>
-                  <td><?php echo $row->edad; ?></td>
                   <td><?php echo $row->direccion; ?></td>
+                  <td><?php echo $row->email; ?></td>
+                  <td><?php echo $row->celular; ?></td>
                   <td><?php echo formatearFecha($row->creado); ?></td>
                   <td><?php echo formatearFecha($row->fechaActualizacion); ?></td>
                   
@@ -206,18 +210,21 @@
                   </tbody>
 
                   <tfoot>
-                  <tr>
+                  <tr align="center">
                     <th>No</th>
-                    <th>Nombre</th>
-                    <th>CI</th>
-                    <th>Genero</th>
-                    <th>Edad</th>
-                    <th>Direccion</th>
-                    <th>Fecha Creacion</th>
-                    <th>Fecha Actualizacion</th>
-                    <th>Modificar</th>
-                    <th>Eliminar</th>
-                    <th>Deshabilitar</th>
+                      <th>Nombre</th>
+                      <th>CI</th>
+                      <th>Fecha de Nacimiento</th>
+                      <th>Genero</th>
+                      <th>Direccion</th>
+                      <th>Email</th>
+                      <th>Celular</th>
+                      <th>Fecha Creacion</th>
+                      <th>Fecha Actualizacion</th>
+                      <th>Modificar</th>
+                      <th>Eliminar</th>
+                      <th>Deshabilitar</th>
+                      
                     
                   </tr>
                   </tfoot>

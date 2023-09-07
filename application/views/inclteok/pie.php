@@ -103,6 +103,35 @@
 <!-- AdminLTE App -->
 <script src="<?php echo base_url(); ?>adminlte/dist/js/adminlte.min.js"></script>
 
+<!--------------------------------------------------------------------------->
+<script>
+        const input = document.getElementById('letras');
+        const errorMessagepal = document.querySelector('.error-messagepal');
+
+        input.addEventListener('input', function () {
+            if (input.validity.valid) {
+                errorMessagepal.style.display = 'none';
+            } else {
+                errorMessagepal.style.display = 'block';
+            }
+        });
+    </script>
+<!--------------------------------------------------------------------------->
+<script>
+        function capturarFecha() {
+            // Obtén la fecha de nacimiento ingresada por el usuario
+            var fechaNacimiento = document.getElementById('fechaNacimiento').value;
+            
+            // Puedes utilizar la variable "fechaNacimiento" como desees
+            alert('Fecha de Nacimiento: ' + fechaNacimiento);
+        }
+    </script>
+<!--------------------------------------------------------------------------->
+
+<!--------------------------------------------------------------------------->
+<!--------------------------------------------------------------------------->    
+<!---->
+
 </body>
 
 </html>

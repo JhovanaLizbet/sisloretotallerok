@@ -31,6 +31,18 @@
     <!-- Template Stylesheet -->
     <link href="<?php echo base_url();?>css/style.css" rel="stylesheet">
 
+    <style>
+        input:invalid {
+            border: 1px solid Silver;
+        }
+
+        .error-messagepal {
+            color: red;
+            display: none;
+        }
+    </style>
+    
+
     
 </head>
 <!--                                  FIN  CABECERA                                   -->

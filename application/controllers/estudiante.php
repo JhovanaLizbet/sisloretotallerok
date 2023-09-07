@@ -138,7 +138,7 @@ class Estudiante extends CI_Controller // herencia
 		$this->load->view('inclteok/cabecera'); //cabezera
 		$this->load->view('inclteok/menusuperior'); //menu
 		//$this->load->view('inclte/menulateral');
-		$this->load->view('est_formulario');
+		$this->load->view('est_formulariocrearcuenta');
 		$this->load->view('inclteok/pie'); // pie 
 	}
 
@@ -147,22 +147,32 @@ class Estudiante extends CI_Controller // herencia
 		//cargamos la libreria validacion (podemos cargar tb )
 		$this->load->library('form_validation');
 
+
+
 										  //name
-		$this->form_validation->set_rules('nombre','Nombre de usuario','required|alpha','required|min_length[3]|max_length[12]'); 
+		$this->form_validation->set_rules('nombre','Nombre de usuario','required|min_length[3]|max_length[12]',array('required'=>'Se requiere el apellido paterno','min_length'=>'Por lo menos 3 caracteres','max_length'=>'Maximo 12 caracteres')); 
 		//define las reglas, no admite celda vacia, min 5 y max 12 caracteres, de esta manera se valida el campo nombre
 
 		$this->form_validation->set_rules('apellido1','Primer apellido','required|min_length[3]|max_length[12]',array('required'=>'Se requiere el apellido paterno','min_length'=>'Por lo menos 3 caracteres','max_length'=>'Maximo 12 caracteres')); 
 
-		$this->form_validation->set_rules('apellido2','Segundo apellido','required|min_length[5]|max_length[12]',array('required'=>'Se requiere el apellido materno','min_length'=>'Por lo menos 5 caracteres','max_length'=>'Maximo 12 caracteres'));
+		$this->form_validation->set_rules('apellido2','Segundo apellido','required|min_length[3]|max_length[12]',array('required'=>'Se requiere el apellido materno','min_length'=>'Por lo menos 3 caracteres','max_length'=>'Maximo 12 caracteres'));
 
 
 		$this->form_validation->set_rules('ci','ci','required|numeric','required|greater_than[-1]|less_than[100000000]',array('required'=>'Se requiere el carnet de identidad','numeric'=>'numeros','greater_than'=>'mayor o igual a 100000','less_than'=>'Menor o igual a 0'));
 
-		$this->form_validation->set_rules('genero','genero','required|min_length[3]|max_length[12]',array('required'=>'Se requiere el sexo','min_length'=>'Por lo menos 5 caracteres','max_length'=>'Maximo 12 caracteres'));
+		$this->form_validation->set_rules('genero','genero','required|min_length[1]|max_length[1]',array('required'=>'Se requiere el sexo','min_length'=>'Por lo menos 1 caracteres','max_length'=>'Maximo 1 caracteres'));
 
-		$this->form_validation->set_rules('edad','edad','required|greater_than[-1]|less_than[100]',array('required'=>'Se requiere la edad','greater_than'=>'mayor o igual a 100','less_than'=>'Menor o igual a 100'));
+		$this->form_validation->set_rules('direccion','direccion','required|min_length[1]|max_length[32]',array('required'=>'Se requiere la direccion','min_length'=>'Por lo menos 1 caracteres','max_length'=>'Maximo 32 caracteres'));
 
-		$this->form_validation->set_rules('direccion','direccion','required|min_length[5]|max_length[50]',array('required'=>'Se requiere la direccion','min_length'=>'Por lo menos 5 caracteres','max_length'=>'Maximo 50 caracteres'));
+		$this->form_validation->set_rules('email','La direccion de correo','required|min_length[1]|max_length[52]',array('required'=>'Se requiere el correo electronico','min_length'=>'Por lo menos 1 caracteres','max_length'=>'Maximo 52 caracteres'));
+
+		$this->form_validation->set_rules('celular','celular','required|numeric','required|greater_than[-1]|less_than[100000000]',array('required'=>'Se requiere el numero del celular','numeric'=>'numeros','greater_than'=>'mayor o igual a 100000','less_than'=>'Menor o igual a 0'));
+
+		$this->form_validation->set_rules('password1', 'Contraseña', 'required');
+    	$this->form_validation->set_rules('password2', 'Confirmar Contraseña', 'required|matches[password]');
+
+    	// Establece los mensajes de error personalizados (opcional)
+    	$this->form_validation->set_message('matches', 'Las contraseñas no coinciden.');
 
 
 /*
@@ -173,10 +183,10 @@ class Estudiante extends CI_Controller // herencia
 			$this->load->view('inclteok/cabecera'); //cabezera
 			$this->load->view('inclteok/menusuperior'); //menu
 			//$this->load->view('inclte/menulateral');
-			$this->load->view('est_formulario');
+			$this->load->view('est_formulariocrearcuenta');
 			$this->load->view('inclteok/pie'); // pie 			
 		}
-		else //llega los datos validados
+		else //SI llega los datos validados
 		{
 			
 			//atributo BD          formulario         
@@ -184,10 +194,24 @@ class Estudiante extends CI_Controller // herencia
 			$data['primerApellido']=$_POST['apellido1'];
 			$data['segundoApellido']=$_POST['apellido2'];
 			$data['ci']=$_POST['ci'];
-			//$data['fechaNacimiento']=$_POST['fechaNacimiento'];
+			$data['fechaNacimiento']=$_POST['fechaNacimiento'];
 			$data['genero']=$_POST['genero'];
-			$data['edad']=$_POST['edad'];
 			$data['direccion']=$_POST['direccion'];
+			$data['email']=$_POST['email'];
+			$data['celular']=$_POST['celular'];
+			$data['password']=$_POST['password'];
+
+			if (isset($_POST['password']))
+			{
+			    // Obtén la contraseña desde el formulario
+			    $contrasena = $_POST['password'];
+			    
+			    // Hashea la contraseña usando password_hash
+			    $hashContrasena = password_hash($contrasena, PASSWORD_DEFAULT);
+			    
+			    // Asigna el hash de la contraseña al campo 'password'
+			    $data['password'] = $hashContrasena;
+			}
 
 			$this->estudiante_model->agregarestudiante($data);
 
