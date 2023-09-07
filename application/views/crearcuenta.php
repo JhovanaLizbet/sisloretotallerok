@@ -165,30 +165,52 @@
           <div class="form-group">
             <label class="col-md-12 control-label" for="name"></label>  
             <div class="col-md-12">
-            <b>Nombre:</b><input id="name" name="name" placeholder="Ingresa tu nombre" class="form-control input-md" type="text">              
+                <b>Nombre:</b><input type="text" id="name" name="nombre" placeholder="Ingresa tu nombre" class="form-control input-md" value="<?php echo set_value('nombre'); ?>" >
+                <?php echo form_error('nombre'); ?>
             </div>
           </div>
+          <!--<b>Nombre:</b>
+          <input type="text" id="palabra" name="nombre" placeholder="Escriba el nombre" class="form-control" value="<?php echo set_value('nombre'); ?>" onkeyup="validarPalabras()"> -->
+
+          <div class="form-group">
+                <label class="col-md-12 control-label" for="name"></label>  
+                <div class="col-md-12">
+                <b>Apellido Paterno:</b></b><input type="text" id="name" name="apellido1" placeholder="Ingresa tu primer apellido" class="form-control input-md" value="<?php echo set_value('apellido1'); ?>">              
+
+                <?php echo form_error('apellido1'); ?>
+                </div>
+          </div>
+          <!-- 
+            <b>Apellido Paterno:</b>
+          <input type="text" id="pal" name="apellido1" placeholder="Escriba el primer apellido" class="form-control" value="<?php echo set_value('apellido1'); ?>" onkeyup="validarPalabras()" >
+          <span id="mensaje-error" style="display: none; color: red;">Solo se permiten letras.</span>
+
+          
+          -->
 
           <div class="form-group">
             <label class="col-md-12 control-label" for="name"></label>  
             <div class="col-md-12">
-            <b>Apellido Paterno:</b></b><input id="name" name="name" placeholder="Ingresa tu primer apellido" class="form-control input-md" type="text">              
+            <b>Apellido Materno:</b><input type="text" id="name" name="apellido2" placeholder="Ingresa tu segundo apellido" class="form-control input-md" value="<?php echo set_value('apellido2'); ?>">
+            <?php echo form_error('apellido2'); ?>
             </div>
           </div>
+          <!--
+            <b>Apellido Materno:</b>
+          <input type="text" name="apellido2" placeholder="Escriba el segundo apellido" class="form-control" value="<?php echo set_value('apellido2'); ?>">
+          -->
 
           <div class="form-group">
             <label class="col-md-12 control-label" for="name"></label>  
             <div class="col-md-12">
-            <b>Apellido Materno:</b><input id="name" name="name" placeholder="Ingresa tu segundo apellido" class="form-control input-md" type="text">              
+            <b>Carnet de Identidad:</b><input type="text" id="name" name="ci" placeholder="Ingresa tu carnet de identidad" class="form-control input-md" value="<?php echo set_value('ci'); ?>">
+            <?php echo form_error('ci'); ?>
             </div>
           </div>
-
-          <div class="form-group">
-            <label class="col-md-12 control-label" for="name"></label>  
-            <div class="col-md-12">
-            <b>Carnet de Identidad:</b><input id="name" name="name" placeholder="Ingresa tu carnet de identidad" class="form-control input-md" type="text">              
-            </div>
-          </div>
+          <!--
+            <b>Carnet de Identidad:</b>
+          <input type="text" name="ci" placeholder="Escriba su carnet de identidad" class="form-control" value="<?php echo set_value('ci'); ?>">
+          -->
 
           <div class="form-group">
             <label class="col-md-12 control-label" for="gender"></label>
