@@ -95,25 +95,28 @@
     <script src="<?php echo base_url();?>js/main.js"></script>
 
     <!-- jQuery -->
-<script src="<?php echo base_url(); ?>adminlte/plugins/jquery/jquery.min.js"></script>
+    <script src="<?php echo base_url(); ?>adminlte/plugins/jquery/jquery.min.js"></script>
 
-<!-- Bootstrap 4 -->
-<script src="<?php echo base_url(); ?>adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="<?php echo base_url(); ?>adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!-- AdminLTE App -->
-<script src="<?php echo base_url(); ?>adminlte/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="<?php echo base_url(); ?>adminlte/dist/js/adminlte.min.js"></script>
 
 <!--------------------------------------------------------------------------->
-<script>
-        const input = document.getElementById('letras');
-        const errorMessagepal = document.querySelector('.error-messagepal');
-
-        input.addEventListener('input', function () {
-            if (input.validity.valid) {
-                errorMessagepal.style.display = 'none';
-            } else {
-                errorMessagepal.style.display = 'block';
-            }
+    <script>
+        const inputs = document.querySelectorAll('input[type="text"]');
+        
+        inputs.forEach(input => {
+            const errorElement = document.getElementById(`${input.id}-error`);
+            
+            input.addEventListener('input', function () {
+                if (input.validity.valid) {
+                    errorElement.style.display = 'none';
+                } else {
+                    errorElement.style.display = 'block';
+                }
+            });
         });
     </script>
 <!--------------------------------------------------------------------------->
@@ -127,7 +130,25 @@
         }
     </script>
 <!--------------------------------------------------------------------------->
+<script>
+        const password1 = document.getElementById('password1');
+        const password2 = document.getElementById('password2');
+        const matchStatus = document.getElementById('match_status');
+        const matchText = document.getElementById('match_text');
 
+        password1.addEventListener('input', verificarCoincidencia);
+        password2.addEventListener('input', verificarCoincidencia);
+
+        function verificarCoincidencia() {
+            if (password1.value === password2.value) {
+                matchStatus.style.visibility = 'visible'; // Muestra la marca de verificación
+                matchText.textContent = 'Las contraseñas coinciden';
+            } else {
+                matchStatus.style.visibility = 'hidden'; // Oculta la marca de verificación
+                matchText.textContent = 'X Las contraseñas NO coinciden';
+            }
+        }
+    </script>
 <!--------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------->    
 <!---->

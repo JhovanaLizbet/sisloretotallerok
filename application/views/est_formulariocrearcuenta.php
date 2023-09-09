@@ -51,25 +51,29 @@
           <!---
           <input type="text" id="palabra" name="nombre" placeholder="Escriba el nombre" class="form-control" value="<?php echo set_value('nombre'); ?>">
           -->
-          <input type="text" id="letras" name="nombre" placeholder="Escriba el nombre" class="form-control input-md" value="<?php echo set_value('nombre'); ?>" pattern="[A-Za-z]+" required >
-          <div class="error-messagepal">Solo se permiten letras</div>
+          <input type="text" id="nombre" name="nombre" placeholder="Escriba el nombre" class="form-control input-md" value="<?php echo set_value('nombre'); ?>" pattern="[A-Za-z]+" required >
+          <div class="error-message" id="nombre-error">Solo se permiten letras</div>
 
           
 
           <?php echo form_error('nombre'); ?> <!-- --> <!-- -->
 
 					<b>Apellido Paterno:</b>
-          <input type="text" id="letras" name="apellido1" placeholder="Escriba el primer apellido" class="form-control input-md" value="<?php echo set_value('apellido1'); ?>">
+          <input type="text" id="apellido" name="apellido1" title="Solo se permiten letras" placeholder="Escriba el primer apellido" class="form-control input-md" value="<?php echo set_value('apellido1'); ?>" pattern="[A-Za-z]+" required>
+          <div class="error-message" id="apellido-error">Solo se permiten letras</div>
+          
 
           <?php echo form_error('apellido1'); ?>
 
 					<b>Apellido Materno:</b>
-          <input type="text" name="apellido2" placeholder="Escriba el segundo apellido" class="form-control input-md" value="<?php echo set_value('apellido2'); ?>">
+          <input type="text" id="apellidom"name="apellido2" placeholder="Escriba el segundo apellido" class="form-control input-md" value="<?php echo set_value('apellido2'); ?>" pattern="[A-Za-z]+" required>
+          <div class="error-message" id="apellidom-error">Solo se permiten letras</div>
 
           <?php echo form_error('apellido2'); ?>
 
           <b>Carnet de Identidad:</b>
-          <input type="text" name="ci" placeholder="Escriba su carnet de identidad" class="form-control input-md" value="<?php echo set_value('ci'); ?>">
+          <input type="text" id="ci" name="ci" pattern="[0-9]+" placeholder="Escriba su carnet de identidad" class="form-control input-md" value="<?php echo set_value('ci'); ?>" required>
+          <div class="error-message" id="ci-error">Solo se permiten números</div>
 
           <?php echo form_error('ci'); ?>
 
@@ -105,22 +109,24 @@
           
 
           <b>Celular:</b>
-          <input type="text" name="celular" placeholder="Escriba su numero de celular" class="form-control input-md" value="<?php echo set_value('celular'); ?>">
+          <input type="text" id="celular" name="celular" pattern="[0-9]+" placeholder="Escriba su numero de celular" class="form-control input-md" value="<?php echo set_value('celular'); ?>">
+          <div class="error-message" id="celular-error">Solo se permiten números</div>
 
           
           <?php echo form_error('celular'); ?>
 
           <b>Contraseña:</b>
-          <input type="password" id="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Debe contener al menos un número y una letra mayúscula y minúscula, y al menos 8 o más caracteres" placeholder="Escriba su contraseña" class="form-control input-md"value="<?php echo set_value('password'); ?>">
-
+          <input type="password" id="password1" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Debe contener al menos un número y una letra mayúscula y minúscula, y al menos 8 o más caracteres" placeholder="Escriba su contraseña" class="form-control input-md"value="<?php echo set_value('password'); ?>" required>        
 
           <?php echo form_error('contraseña'); ?>
 
           <b>Confirmar Contraseña:</b>
-          <input type="password" id="cpassword" name="cpassword" placeholder="Confirme su contraseña" class="form-control input-md" value="<?php echo set_value('password'); ?>">
-          <br></br>
+          <input type="password" id="password2" name="password2" placeholder="Confirme su contraseña" class="form-control input-md" required>
 
-          
+          <span id="match_status" class="match-tick"></span>
+          <span id="match_text"></span>            
+
+     <br></br>
 
 					<button type="submit" class="btn btn-success"> REGISTRAR </button>
           <button class="btn btn-dark"> CANCELAR </button>

@@ -36,13 +36,20 @@
             border: 1px solid Silver;
         }
 
-        .error-messagepal {
+        .error-message {
             color: red;
             display: none;
         }
-    </style>
-    
 
+    </style>
+    <style>
+        .match-tick::before {
+            content: "✔"; /* Símbolo de marca de verificación */
+            color: green;
+            font-size: 20px;
+            margin-right: 5px; /* Espacio entre el símbolo y el texto */
+        }
+    </style>
     
 </head>
 <!--                                  FIN  CABECERA                                   -->

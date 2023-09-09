@@ -168,14 +168,15 @@ class Estudiante extends CI_Controller // herencia
 
 		$this->form_validation->set_rules('celular','celular','required|numeric','required|greater_than[-1]|less_than[100000000]',array('required'=>'Se requiere el numero del celular','numeric'=>'numeros','greater_than'=>'mayor o igual a 100000','less_than'=>'Menor o igual a 0'));
 
-		$this->form_validation->set_rules('password1', 'Contraseña', 'required');
+		$this->form_validation->set_rules('password', 'password');
+/*		
     	$this->form_validation->set_rules('password2', 'Confirmar Contraseña', 'required|matches[password]');
 
     	// Establece los mensajes de error personalizados (opcional)
     	$this->form_validation->set_message('matches', 'Las contraseñas no coinciden.');
 
 
-/*
+
 		// devuelve false si no supera alguna validacion, caso contrario se carga nuevamente todo el formulario
 */		
 		if($this->form_validation->run()==FALSE) 
