@@ -34,10 +34,10 @@
                     </div>
                 </div>
 
-                <a href="contact.html" class="nav-item nav-link">Horarios</a>                
-                <a href="contact.html" class="nav-item nav-link">Instalaciones</a>
-                <a href="contact.html" class="nav-item nav-link">Contacto</a>
-                <a href="contact.html" class="nav-item nav-link">Registrarse</a>
+                <a href="#" class="nav-item nav-link">Horarios</a>                
+                <a href="#" class="nav-item nav-link">Instalaciones</a>
+                <a href="#" class="nav-item nav-link">Contacto</a>
+                <a href="<?php echo base_url(); ?>index.php/usuarios/registrarcuenta" class="nav-item nav-link">Registrarse</a>
             </div>
             
             <!--<a href="usuarios" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">LOGIN<i class="fa fa-arrow-right ms-3"></i></a>-->

@@ -37,7 +37,7 @@
               <!-- /.card-header -->
               <div class="card-body">
                 <?php 
-                 	echo form_open_multipart('estudiante/agregarbd');
+                 	echo form_open_multipart('estudiante/mostrarDatosRegistro');
                 ?>
 <!---
 <form>

@@ -144,10 +144,10 @@ class Estudiante extends CI_Controller // herencia
 
 	public function agregarbd() //aqui deben estar las validaciones
 	{
+
+		
 		//cargamos la libreria validacion (podemos cargar tb )
 		$this->load->library('form_validation');
-
-
 
 										  //name
 		$this->form_validation->set_rules('nombre','Nombre de usuario','required|min_length[3]|max_length[12]',array('required'=>'Se requiere el apellido paterno','min_length'=>'Por lo menos 3 caracteres','max_length'=>'Maximo 12 caracteres')); 
@@ -178,7 +178,10 @@ class Estudiante extends CI_Controller // herencia
 
 
 		// devuelve false si no supera alguna validacion, caso contrario se carga nuevamente todo el formulario
+
 */		
+		//$this->load->view('registro_exitoso');
+
 		if($this->form_validation->run()==FALSE) 
 		{
 			$this->load->view('inclteok/cabecera'); //cabezera
@@ -189,6 +192,7 @@ class Estudiante extends CI_Controller // herencia
 		}
 		else //SI llega los datos validados
 		{
+
 			
 			//atributo BD          formulario         
 			$data['nombre']=$_POST['nombre'];
@@ -217,9 +221,18 @@ class Estudiante extends CI_Controller // herencia
 			$this->estudiante_model->agregarestudiante($data);
 
 			//redireccionamos, dirigirnos al controlador estudiante y el metoddo index
-			redirect('estudiante/indexlte','refresh');
+
+			//redirect('usuarios/registrarcuenta','refresh');
+			redirect('usuarios/mostrarDatosRegistro', 'refresh');
 		}
 	}
+	
+	public function mostrarDatosRegistro()
+    {
+    	$this->load->view('registro_exitoso');
+    	//redirect('usuarios/registrarcuenta','refresh');
+
+    }
 
 /*/////////////////////
 	function validarPalabras() 

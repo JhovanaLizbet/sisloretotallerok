@@ -5,6 +5,15 @@ defined('BASEPATH') OR exit('No direct script access allowed'); // internamente 
 
 class Usuarios extends CI_Controller // herencia
 {
+	public function bienvenido() //metodo
+	{
+			$this->load->view('inclteok/cabecera'); //cabezera
+			$this->load->view('inclteok/menusuperior'); //menu
+			$this->load->view('inclteok/centro'); //
+			$this->load->view('inclteok/pie'); // pie
+		
+	}
+
 	public function index() //metodo
 	{
 		if($this->session->userdata('login')) // si esxiste un usuario VALIDADO
@@ -18,6 +27,19 @@ class Usuarios extends CI_Controller // herencia
 										//en este caso llama a  crearcuenta.php
 		}		
 	}
+
+	public function registrarcuenta()
+	{
+		//mostrar un formulario (que va a estar en una vista) para agregar nuevo est
+
+		$this->load->view('inclteok/cabecera'); //cabezera
+		$this->load->view('inclteok/menusuperior'); //menu
+		$this->load->view('est_formulariocrearcuenta');
+		$this->load->view('inclteok/pie'); // pie 
+	}
+
+
+
 
 /*	public function indexlte() //metodo
 	{
@@ -68,7 +90,7 @@ class Usuarios extends CI_Controller // herencia
 			redirect('usuarios/index/1','refresh');
 		}
 	}
-	//legan todos los usuarios autenticados
+	//llegan todos los usuarios autenticados
 	public function panel()
 	{
 		if($this->session->userdata('login')) // si esxiste una session abierta
