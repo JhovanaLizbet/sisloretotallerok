@@ -37,7 +37,7 @@
               <!-- /.card-header -->
               <div class="card-body">
                 <?php 
-                 	echo form_open_multipart('estudiante/mostrarDatosRegistro');
+                 	echo form_open_multipart('estudiante/agregarbd');
                 ?>
 <!---
 <form>
@@ -115,8 +115,9 @@
           
           <?php echo form_error('celular'); ?>
 
-          <b>Contraseña:</b>
-          <input type="password" id="password1" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Debe contener al menos un número y una letra mayúscula y minúscula, y al menos 8 o más caracteres" placeholder="Escriba su contraseña" class="form-control input-md"value="<?php echo set_value('password'); ?>" required>        
+          <b>Contraseña: </b>
+          <input type="password" id="password1" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Debe contener al menos un número y una letra mayúscula y minúscula, y al menos 8 o más caracteres" placeholder="Escriba su contraseña" class="form-control input-md"value="<?php echo set_value('password'); ?>" required>
+          <p>Contiene 8 o más caracteres, número, letra mayúscula y minúscula</p>
 
           <?php echo form_error('contraseña'); ?>
 

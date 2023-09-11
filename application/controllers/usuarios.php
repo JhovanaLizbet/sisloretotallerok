@@ -13,6 +13,14 @@ class Usuarios extends CI_Controller // herencia
 			$this->load->view('inclteok/pie'); // pie
 		
 	}
+	public function cambiarContrasenia() //metodo
+	{
+			$this->load->view('inclteok/cabecera'); //cabezera
+			$this->load->view('inclteok/menusuperior'); //menu
+			$this->load->view('usu_formularioCambioContrasenia'); //
+			$this->load->view('inclteok/pie'); // pie
+		
+	}
 
 	public function index() //metodo
 	{
@@ -37,6 +45,8 @@ class Usuarios extends CI_Controller // herencia
 		$this->load->view('est_formulariocrearcuenta');
 		$this->load->view('inclteok/pie'); // pie 
 	}
+
+	
 
 
 

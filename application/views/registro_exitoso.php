@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Datos de Registro</title>
+    <title>Exito</title>
     <!-- Asegúrate de incluir los enlaces a Bootstrap y jQuery -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -15,13 +15,13 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="datosModalLabel">Datos de Registro</h5>
+                <h5 class="modal-title" id="datosModalLabel">Registro Exitoso</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <h1>Datos enviados correctamente.</h1>
+                <h3>Los datos fueron registrados correctamente.</h3>
             </div>
             <div class="modal-footer">
                 <a href="<?php echo base_url(); ?>index.php/usuarios/registrarcuenta">
