@@ -19,7 +19,7 @@
                   <a class="d-block">__________________________</a>
                 </div>
                 <div align="center">
-                  <a href="<?php echo base_url(); ?>index.php/usuarios/registrarcuenta"><h6 style="color: darkcyan;">Ver Perfil</h6></a>
+                  <a href="<?php echo base_url(); ?>index.php/usuarios/cambiarContrasenia"><h6 style="color: darkcyan;">Ver Perfil</h6></a>
                 </div>
                 <div align="center">
                   <a class="d-block">__________________________</a>

@@ -13,13 +13,71 @@ class Usuarios extends CI_Controller // herencia
 			$this->load->view('inclteok/pie'); // pie
 		
 	}
+
+	public function listaUsuarios() //metodo
+	{
+		if($this->session->userdata('login')) // si esxiste una session abierta
+		{
+			$lista=$this->estudiante_model->listaestudiantes();
+			$data['estudiantesok']=$lista; // de la base de datos
+
+			$this->load->view('incltever/cabecera'); //cabezera
+			$this->load->view('incltever/menusuperior'); //menu superior
+			$this->load->view('incltever/menulateralchatgpt'); //menu lateral
+			$this->load->view('incltever/menulateralcentro', $data); //menu centro
+			$this->load->view('incltever/pie'); // pie
+		}
+		else
+		{
+			redirect('usuarios/index/2','refresh');
+		}
+
+	}
+
 	public function cambiarContrasenia() //metodo
 	{
 			$this->load->view('incltever/cabecera'); //cabezera
 			$this->load->view('incltever/menusuperior'); //menu
+			$this->load->view('incltever/menulateralchatgpt'); //menu lateral
 			$this->load->view('usu_formularioCambioContrasenia'); //
 			$this->load->view('incltever/pie'); // pie		
 	}
+
+	public function verificarDatosContrasenia()
+	{
+		if ($this->session->userdata('login')) 
+		{
+			$idUsuario = $this->session->userdata('idusuario');
+
+			$contraseniaActual = $_POST['contraseniaActual'];
+			$contraseniaNueva = $_POST['contraseniaNueva'];
+			$repeContraseniaNueva = $_POST['repeContraseniaNueva'];
+
+			$data['password'] = $contraseniaNueva;
+
+			$consulta = $this->contrasenia_model->verificarPasswordAdministrador($idUsuario, $contraseniaActual);
+
+			if ($consulta->num_rows() > 0) {
+				if($contraseniaNueva == $repeContraseniaNueva)
+				{
+					$this->contrasenia_model->actualizarContraseniaAdministrador($idUsuario, $data);
+					redirect('usuarios/logout', 'refresh');
+				}
+				else{
+					redirect('usuarios/cambioContrasenia', 'refresh');
+				}
+			} 
+			else 
+			{
+				redirect('usuarios/cambioContrasenia', 'refresh');
+			}
+		} 
+		else 
+		{
+			redirect('usuarios/index', 'refresh');
+		}
+	}
+
 
 	public function index() //metodo
 	{
@@ -107,7 +165,7 @@ class Usuarios extends CI_Controller // herencia
 			$tipo=$this->session->userdata('tipo');
 			if($tipo=='admin')
 			{
-				redirect('estudiante/indexlte','refresh'); 
+				redirect('usuarios/listaUsuarios','refresh'); 
 			}
 			else
 			{

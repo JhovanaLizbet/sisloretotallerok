@@ -67,13 +67,57 @@ class Estudiante extends CI_Controller // herencia
 
 	}
 
-		public function cambiarContrasenia() //metodo
+	public function cambiarContrasenia() //metodo
 	{
 			$this->load->view('incltever/cabecera'); //cabezera
 			$this->load->view('incltever/menusuperior'); //menu
 			$this->load->view('incltever/menulateralchatgpt'); //menu lateral
 			$this->load->view('est_formularioCambioContrasenia'); //
 			$this->load->view('incltever/pie'); // pie		
+	}
+
+	public function verificarDatosContrasenia()
+	{
+		if ($this->session->userdata('login')) {
+
+			$idUsuario = $this->session->userdata('idUsuario');
+			
+			$contraseniaActual = $_POST['contraseniaActual'];
+			$contraseniaNueva = $_POST['contraseniaNueva'];
+			$repeContraseniaNueva = $_POST['repeContraseniaNueva'];
+			
+			if (isset($_POST['contraseniaNueva']))
+			{
+			    // Obtén la contraseña desde el formulario
+			    $contrasenanueva = $_POST['contraseniaNueva'];
+			    
+			    // Hashea la contraseña usando password_hash
+			    $hashContrasena = password_hash($contrasenanueva, PASSWORD_DEFAULT);
+			    
+			    // Asigna el hash de la contraseña al campo 'password'
+			    $data['password'] = $hashContrasena;
+			}
+
+			$consulta = $this->contrasenia_model->verificarPasswordAdministrador($idEstudiante, $contraseniaActual);
+
+			if ($consulta->num_rows() > 0) {
+				if($contraseniaNueva == $repeContraseniaNueva){
+					$this->contrasenia_model->actualizarContraseniaAdministrador($idEstudiante, $data);
+					redirect('usuarios/logout', 'refresh');
+				}
+				else{
+					redirect('estudiante/cambioContrasenia', 'refresh');
+				}
+			} 
+			else 
+			{
+				redirect('estudiante/cambioContrasenia', 'refresh');
+			}
+		} 
+		else 
+		{
+			redirect('estudiante/indexlte', 'refresh');
+		}
 	}
 
 
@@ -259,49 +303,6 @@ class Estudiante extends CI_Controller // herencia
     	$this->load->view('registro_exitoso');
     }
 
-    public function verificarDatosContrasenia()
-	{
-		if ($this->session->userdata('login')) {
-
-			$idUsuario = $this->session->userdata('idUsuario');
-			
-			$contraseniaActual = $_POST['contraseniaActual'];
-			$contraseniaNueva = $_POST['contraseniaNueva'];
-			$repeContraseniaNueva = $_POST['repeContraseniaNueva'];
-			
-			if (isset($_POST['contraseniaNueva']))
-			{
-			    // Obtén la contraseña desde el formulario
-			    $contrasenanueva = $_POST['contraseniaNueva'];
-			    
-			    // Hashea la contraseña usando password_hash
-			    $hashContrasena = password_hash($contrasenanueva, PASSWORD_DEFAULT);
-			    
-			    // Asigna el hash de la contraseña al campo 'password'
-			    $data['password'] = $hashContrasena;
-			}
-
-			$consulta = $this->contrasenia_model->verificarPasswordAdministrador($idUsuario, $contraseniaActual);
-
-			if ($consulta->num_rows() > 0) {
-				if($contraseniaNueva == $repeContraseniaNueva){
-					$this->contrasenia_model->actualizarContraseniaAdministrador($idUsuario, $data);
-					redirect('usuarios/logout', 'refresh');
-				}
-				else{
-					redirect('administrador/cambioContrasenia', 'refresh');
-				}
-			} 
-			else 
-			{
-				redirect('administrador/cambioContrasenia', 'refresh');
-			}
-		} 
-		else 
-		{
-			redirect('usuarios/index', 'refresh');
-		}
-	}
 
 /*/////////////////////
 	function validarPalabras() 
