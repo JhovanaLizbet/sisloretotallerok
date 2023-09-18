@@ -34,17 +34,48 @@ class Estudiante extends CI_Controller // herencia
 			$fechaprueba=formatearFecha('2023-06-02 16:00:08');
 			$data['fechatest']=$fechaprueba; //se crea otro campo fechatest su valor va a ser $fechaprueba
 
-			$this->load->view('inclteok/cabecera'); //cabezera
-			$this->load->view('inclteok/menusuperior'); //menu
-			//$this->load->view('inclte/menulateral');
+			$this->load->view('incltever/cabecera'); //cabezera
+			$this->load->view('incltever/menusuperior'); //menu
+			//$this->load->view('incltever/menulateraltres');
+			//$this->load->view('inclteok/centro');
 			$this->load->view('est_listalte',$data); // vista del formulario
-			$this->load->view('inclteok/pie'); // pie
+			$this->load->view('incltever/pie'); // pie
 		}
 		else
 		{
 			redirect('usuarios/index/2','refresh');
 		}
 	}
+
+	public function listaUsuarios() //metodo
+	{
+		if($this->session->userdata('login')) // si esxiste una session abierta
+		{
+			$lista=$this->estudiante_model->listaestudiantes();
+			$data['estudiantesok']=$lista; // de la base de datos
+
+			$this->load->view('incltever/cabecera'); //cabezera
+			$this->load->view('incltever/menusuperior'); //menu superior
+			$this->load->view('incltever/menulateralchatgpt'); //menu lateral
+			$this->load->view('incltever/menulateralcentro', $data); //menu centro
+			$this->load->view('incltever/pie'); // pie
+		}
+		else
+		{
+			redirect('usuarios/index/2','refresh');
+		}
+
+	}
+
+		public function cambiarContrasenia() //metodo
+	{
+			$this->load->view('incltever/cabecera'); //cabezera
+			$this->load->view('incltever/menusuperior'); //menu
+			$this->load->view('incltever/menulateralchatgpt'); //menu lateral
+			$this->load->view('est_formularioCambioContrasenia'); //
+			$this->load->view('incltever/pie'); // pie		
+	}
+
 
 	public function inscribir() //metodo
 	{

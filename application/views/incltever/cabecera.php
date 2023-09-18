@@ -42,9 +42,11 @@
     <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>js/select.dataTables.min.css">
     <!-- End plugin css for this page -->
     <!-- inject:css -->
-    <link rel="stylesheet" href="<?php echo base_url();?>css/vertical-layout-light/style.css">
-    <!-- endinject -->
+     <!--<link rel="stylesheet" href="<?php echo base_url();?>css/vertical-layout-light/style.css">
+    endinject -->
     <link rel="shortcut icon" href="images/favicon.png" />
+
+    
 
     <style>
         input:invalid {

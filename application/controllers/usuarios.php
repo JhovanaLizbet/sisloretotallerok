@@ -15,11 +15,10 @@ class Usuarios extends CI_Controller // herencia
 	}
 	public function cambiarContrasenia() //metodo
 	{
-			$this->load->view('inclteok/cabecera'); //cabezera
-			$this->load->view('inclteok/menusuperior'); //menu
+			$this->load->view('incltever/cabecera'); //cabezera
+			$this->load->view('incltever/menusuperior'); //menu
 			$this->load->view('usu_formularioCambioContrasenia'); //
-			$this->load->view('inclteok/pie'); // pie
-		
+			$this->load->view('incltever/pie'); // pie		
 	}
 
 	public function index() //metodo

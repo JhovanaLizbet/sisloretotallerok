@@ -1,24 +1,9 @@
 
-<!-- Content Wrapper. Contains page content -->
+        <!-- Contenedor principal al lado derecho -->
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <!-- Contenido principal de tu página -->
 
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="navbar">
-    <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" href="#">Inicio</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Acerca de</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Servicios</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Contacto</a>
-        </li>
-    </ul>
-</div>
+<!-- ------------------------------------------------------------------------------------------ -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-3">
@@ -27,7 +12,7 @@
           </div>
           <div class="col-sm-4">
             <h5 class="text-white">...</h5>
-            <center><h3 class="text-primary">Cambiar Contraseñia</h3></center>
+            <h3 class="text-primary">Cambiar Contraseñia</h3>
           </div>
           <div class="col-sm-4">
             <h1></h1>
@@ -39,9 +24,9 @@
     <section id="services" class="services">
       <div class="container" data-aos="fade-up">
         <div class="row">
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
             <div >
-            d              
+                        
             </div>
           </div>
 <!----------------------------------- --------------------------------------->
