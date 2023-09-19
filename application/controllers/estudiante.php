@@ -47,7 +47,7 @@ class Estudiante extends CI_Controller // herencia
 		}
 	}
 
-	public function listaUsuarios() //metodo
+	public function verListaEstudiante() //metodo
 	{
 		if($this->session->userdata('login')) // si esxiste una session abierta
 		{
@@ -57,7 +57,7 @@ class Estudiante extends CI_Controller // herencia
 			$this->load->view('incltever/cabecera'); //cabezera
 			$this->load->view('incltever/menusuperior'); //menu superior
 			$this->load->view('incltever/menulateralchatgpt'); //menu lateral
-			$this->load->view('incltever/menulateralcentro', $data); //menu centro
+			$this->load->view('est_listaEstudiantes', $data); //menu centro
 			$this->load->view('incltever/pie'); // pie
 		}
 		else
@@ -244,18 +244,6 @@ class Estudiante extends CI_Controller // herencia
 		$this->form_validation->set_rules('celular','celular','required|numeric','required|greater_than[-1]|less_than[100000000]',array('required'=>'Se requiere el numero del celular','numeric'=>'numeros','greater_than'=>'mayor o igual a 100000','less_than'=>'Menor o igual a 0'));
 
 		$this->form_validation->set_rules('password', 'password');
-/*		
-    	$this->form_validation->set_rules('password2', 'Confirmar Contraseña', 'required|matches[password]');
-
-    	// Establece los mensajes de error personalizados (opcional)
-    	$this->form_validation->set_message('matches', 'Las contraseñas no coinciden.');
-
-
-
-		// devuelve false si no supera alguna validacion, caso contrario se carga nuevamente todo el formulario
-
-*/		
-		//$this->load->view('registro_exitoso');
 
 		if($this->form_validation->run()==FALSE) 
 		{
@@ -267,8 +255,7 @@ class Estudiante extends CI_Controller // herencia
 		}
 		else //SI llega los datos validados
 		{
-
-			
+	
 			//atributo BD          formulario         
 			$data['nombre']=$_POST['nombre'];
 			$data['primerApellido']=$_POST['apellido1'];
@@ -294,7 +281,7 @@ class Estudiante extends CI_Controller // herencia
 			}
 
 			$this->estudiante_model->agregarestudiante($data);
-			redirect('estudiante/mostrarDatosRegistro', 'refresh');
+			redirect('usuarios/mostrarDatosRegistro', 'refresh');
 		}
 	}
 	

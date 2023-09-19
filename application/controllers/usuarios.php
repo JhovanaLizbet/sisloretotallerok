@@ -14,17 +14,77 @@ class Usuarios extends CI_Controller // herencia
 		
 	}
 
-	public function listaUsuarios() //metodo
+	public function validarusuario()
+	{
+		$login=$_POST['login'];
+		$password=md5($_POST['password']);
+
+		$consulta=$this->usuario_model->validar($login,$password);
+
+		if($consulta->num_rows()>0)
+		{
+			foreach($consulta->result() as $row)
+			{
+				//creando mi variable de sesion
+				$this->session->set_userdata('idusuario',$row->idUsuario); //
+				$this->session->set_userdata('login',$row->login); //
+				$this->session->set_userdata('tipo',$row->tipo); //	
+
+			 	redirect('usuarios/panel','refresh'); // redirigimos a su panel de trabajo	
+			}		
+		}
+		else
+		{
+			redirect('usuarios/index/1','refresh');
+		}
+	}
+
+	//llegan todos los usuarios autenticados
+	public function panel()
 	{
 		if($this->session->userdata('login')) // si esxiste una session abierta
 		{
-			$lista=$this->estudiante_model->listaestudiantes();
-			$data['estudiantesok']=$lista; // de la base de datos
+			$tipo=$this->session->userdata('tipo');
+			if($tipo=='admin')
+			{
+				redirect('usuarios/verListaUsuarios','refresh'); 
+			}
+			else
+			{
+				if($tipo=='estudiante')
+				{
+					redirect('estudiante/verListaEstudiante','refresh');
+				}
+				else
+				{
+					redirect('usuarios/index/2','refresh');
+				}
+			}
+		}
+		else
+		{
+			redirect('usuarios/index/2','refresh');
+		}
+	}
+
+	public function logout()
+	{
+		$this->session->sess_destroy(); //vamos a eliminar las variables de sesion y despues
+		redirect('usuarios/index/3','refresh'); // va a redireccionar al login
+	}
+
+
+	public function verListaUsuarios() //metodo
+	{
+		if($this->session->userdata('login')) // si esxiste una session abierta
+		{
+			$lista=$this->usuario_model->listausuarios();
+			$data['usuarios']=$lista; // de la base de datos
 
 			$this->load->view('incltever/cabecera'); //cabezera
 			$this->load->view('incltever/menusuperior'); //menu superior
 			$this->load->view('incltever/menulateralchatgpt'); //menu lateral
-			$this->load->view('incltever/menulateralcentro', $data); //menu centro
+			$this->load->view('usu_listaUsuarios', $data); //menu centro
 			$this->load->view('incltever/pie'); // pie
 		}
 		else
@@ -36,18 +96,25 @@ class Usuarios extends CI_Controller // herencia
 
 	public function cambiarContrasenia() //metodo
 	{
+		if ($this->session->userdata('login')) 
+		{
 			$this->load->view('incltever/cabecera'); //cabezera
 			$this->load->view('incltever/menusuperior'); //menu
 			$this->load->view('incltever/menulateralchatgpt'); //menu lateral
 			$this->load->view('usu_formularioCambioContrasenia'); //
 			$this->load->view('incltever/pie'); // pie		
+		}
+		else
+		{
+			redirect('usuarios/cambiarContrasenia', 'refresh');
+		}
 	}
 
 	public function verificarDatosContrasenia()
 	{
 		if ($this->session->userdata('login')) 
 		{
-			$idUsuario = $this->session->userdata('idusuario');
+			$idUsuario = $this->session->userdata('idUsuario');
 
 			$contraseniaActual = $_POST['contraseniaActual'];
 			$contraseniaNueva = $_POST['contraseniaNueva'];
@@ -55,21 +122,22 @@ class Usuarios extends CI_Controller // herencia
 
 			$data['password'] = $contraseniaNueva;
 
-			$consulta = $this->contrasenia_model->verificarPasswordAdministrador($idUsuario, $contraseniaActual);
+			$consulta = $this->contrasenia_model->verificarPasswordUsuario($idUsuario, $contraseniaActual);
 
 			if ($consulta->num_rows() > 0) {
 				if($contraseniaNueva == $repeContraseniaNueva)
 				{
-					$this->contrasenia_model->actualizarContraseniaAdministrador($idUsuario, $data);
+					$this->contrasenia_model->actualizarContraseniaUsuario($idUsuario, $data);
 					redirect('usuarios/logout', 'refresh');
 				}
-				else{
-					redirect('usuarios/cambioContrasenia', 'refresh');
+				else
+				{
+					redirect('usuarios/cambiarContrasenia', 'refresh');
 				}
 			} 
 			else 
 			{
-				redirect('usuarios/cambioContrasenia', 'refresh');
+				redirect('usuarios/cambiarContrasenia', 'refresh');
 			}
 		} 
 		else 
@@ -104,136 +172,94 @@ class Usuarios extends CI_Controller // herencia
 	}
 
 	
-
-
-
-
-/*	public function indexlte() //metodo
-	{
-		if($this->session->userdata('login')) // si esxiste un usuario VALIDADO
-		{
-			redirect('usuarios/panel','refresh'); // cargamos su panel de trabajo
-
-		}
-		else
-		{
-			redirect('usuarios/index','refresh');
-		}		
-
-		$lista=$this->estudiante_model->listaestudiantes();
-		$data['estudiantes']=$lista;
-
-		$fechaprueba=formatearFecha('2023-06-02 16:00:08');
-		$data['fechatest']=$fechaprueba; //se crea otro campo fechatest su valor va a ser $fechaprueba
-
-		$this->load->view('inclte/cabecera'); //cabezera
-		$this->load->view('inclte/menusuperior'); //menu
-		$this->load->view('inclte/menulateral');
-		$this->load->view('est_listalte',$data);
-		$this->load->view('inclte/pie'); // pie 
-	}
-*/
-	public function validarusuario()
-	{
-		$login=$_POST['login'];
-		$password=md5($_POST['password']);
-
-		$consulta=$this->usuario_model->validar($login,$password);
-
-		if($consulta->num_rows()>0)
-		{
-			foreach($consulta->result() as $row)
-			{
-				//creando mi variable de sesion
-				$this->session->set_userdata('idusuario',$row->idUsuario); //
-				$this->session->set_userdata('login',$row->login); //
-				$this->session->set_userdata('tipo',$row->tipo); //	
-
-			 	redirect('usuarios/panel','refresh'); // redirigimos a su panel de trabajo	
-			}		
-		}
-		else
-		{
-			redirect('usuarios/index/1','refresh');
-		}
-	}
-	//llegan todos los usuarios autenticados
-	public function panel()
-	{
-		if($this->session->userdata('login')) // si esxiste una session abierta
-		{
-			$tipo=$this->session->userdata('tipo');
-			if($tipo=='admin')
-			{
-				redirect('usuarios/listaUsuarios','refresh'); 
-			}
-			else
-			{
-				redirect('estudiante/invitadolte','refresh');
-			}
-		}
-		else
-		{
-			redirect('usuarios/index/2','refresh');
-		}
-	}
-
-	public function logout()
-	{
-		$this->session->sess_destroy(); //vamos a eliminar las variables de sesion y despues
-		redirect('usuarios/index/3','refresh'); // va a redireccionar al login
-	}
-
-
-
-
-
-
-
-/*
 	public function agregar()
 	{
 		//mostrar un formulario (que va a estar en una vista) para agregar nuevo est
 
-		$this->load->view('inclte/cabecera'); //cabezera
-		$this->load->view('inclte/menusuperior'); //menu
-		$this->load->view('inclte/menulateral');
-		$this->load->view('est_formulario');
-		$this->load->view('inclte/pie'); // pie 
+		$this->load->view('incltever/cabecera'); //cabezera
+		$this->load->view('incltever/menusuperior'); //menu
+		$this->load->view('incltever/menulateralchatgpt');
+		$this->load->view('usu_formularioCrearUsuario');
+		$this->load->view('incltever/pie'); // pie 
 	}
 
 	public function agregarbd()
 	{
-		//atributo BD          formulario         
-		$data['nombre']=$_POST['nombre'];
-		$data['primerApellido']=$_POST['apellido1'];
-		$data['segundoApellido']=$_POST['apellido2'];
+		//cargamos la libreria validacion (podemos cargar tb )
+		$this->load->library('form_validation');
 
-		$this->estudiante_model->agregarestudiante($data);
+										  //name
+		$this->form_validation->set_rules('login','Nombre de login','required|min_length[3]|max_length[12]',array('required'=>'Se requiere el apellido paterno','min_length'=>'Por lo menos 3 caracteres','max_length'=>'Maximo 12 caracteres')); 
+		//define las reglas, no admite celda vacia, min 5 y max 12 caracteres, de esta manera se valida el campo nombre
 
-		//redireccionamos, dirigirnos al controlador estudiante y el metoddo index
-		redirect('estudiante/indexlte','refresh');
+		$this->form_validation->set_rules('tipo','tipo','required|min_length[3]|max_length[12]',array('required'=>'Se requiere el apellido paterno','min_length'=>'Por lo menos 3 caracteres','max_length'=>'Maximo 12 caracteres')); 
+
+		$this->form_validation->set_rules('password', 'password');
+
+		if($this->form_validation->run()==FALSE) 
+		{
+			$this->load->view('incltever/cabecera'); //cabezera
+			$this->load->view('incltever/menusuperior'); //menu
+			$this->load->view('incltever/menulateralchatgpt');
+			$this->load->view('usu_formularioCrearUsuario');
+			$this->load->view('incltever/pie'); // pie 			
+		}
+		else //SI llega los datos validados
+		{
+
+			
+			//atributo BD          formulario         
+			$data['login']=$_POST['login'];
+			$data['tipo']=$_POST['tipo'];
+			$data['password']=$_POST['password'];
+
+			if (isset($_POST['password']))
+			{
+			    // Obtén la contraseña desde el formulario
+			    $contrasena = $_POST['password'];
+			    
+			    // Hashea la contraseña usando password_hash
+			    //$hashContrasena = password_hash($contrasena, PASSWORD_DEFAULT);
+			    
+			    // Asigna el hash de la contraseña al campo 'password'
+			    //$data['password'] = $hashContrasena;
+			    $data['password'] = $contrasena;
+			}
+
+			$this->usuario_model->agregarUsuario($data);
+			redirect('usuarios/mostrarDatosRegistro', 'refresh');
+		}
 	}
-	
-	public function eliminarbd()
+
+	public function mostrarDatosRegistro()
+    {
+    	$this->load->view('registro_exitoso_usu');
+    }
+
+	public function modificarUsu()
 	{
-		                          //FORM
-		$idestudiante=$_POST['idestudiante'];
-		$this->estudiante_model->eliminarestudiante($idestudiante);
-		redirect('estudiante/index','refresh');		
+		$idusuario=$_POST['idusuario'];
+		$data['infousuario']=$this->usuario_model->recuperarUsuario($idusuario);
+
+		$this->load->view('incltever/cabecera'); //cabezera
+		$this->load->view('incltever/menusuperior'); //menu superior
+		$this->load->view('incltever/menulateralchatgpt'); //menu lateral
+		//$this->load->view('usu_modificar',$data); //menu centro
+		$this->load->view('incltever/pie'); // pie
 	}
 
 	public function modificar()
 	{
 		$idestudiante=$_POST['idestudiante'];
-		$data['infoestudiante']=$this->estudiante_model->recuperarestudiante($idestudiante);
+		$data['infoestudiante']=$this->usuario_model->recuperarestudiante($idestudiante);
+
 		$this->load->view('inc/cabecera'); //cabezera
 		$this->load->view('inc/menu'); //menu
-		$this->load->view('est_modificar',$data);
+		$this->load->view('usu_modificar',$data);
 		$this->load->view('inc/pie'); // pie 
 	}
 
-	public function modificarbd()
+		public function modificarbd()
 	{
 		$idestudiante=$_POST['idestudiante'];
 
@@ -241,53 +267,9 @@ class Usuarios extends CI_Controller // herencia
 		$data['primerApellido']=$_POST['apellido1'];
 		$data['segundoApellido']=$_POST['apellido2'];
 
-		$this->estudiante_model->modificarestudiante($idestudiante,$data);
+		$this->usuario_model->modificarestudiante($idestudiante,$data);
 		redirect('estudiante/index','refresh');
 	}
 
-	public function deshabilitarbd()
-	{
-		$idestudiante=$_POST['idestudiante'];
-		$data['habilitado']='0';
-		
-		$this->estudiante_model->modificarestudiante($idestudiante,$data);
-		redirect('estudiante/index','refresh');//
-	}
-
-	public function habilitarbd()
-	{
-		$idestudiante=$_POST['idestudiante'];
-		$data['habilitado']='1';
-		
-		$this->estudiante_model->modificarestudiante($idestudiante,$data);
-		redirect('estudiante/deshabilitados','refresh');
-	}
-
-	public function deshabilitados() //metodo
-	{
-		$lista=$this->estudiante_model->listaestudiantesdes();
-		$data['estudiantes']=$lista;
-
-		$this->load->view('inc/cabecera'); //cabezera
-		$this->load->view('inc/menu'); //menu
-		$this->load->view('est_listades',$data); 
-		$this->load->view('inc/pie'); // pie 
-	}
-
-	public function indexlte() //metodo
-	{
-		$lista=$this->estudiante_model->listaestudiantes();
-		$data['estudiantes']=$lista;
-
-		$fechaprueba=formatearFecha('2023-06-02 16:00:08');
-		$data['fechatest']=$fechaprueba; //se crea otro campo fechatest su valor va a ser $fechaprueba
-
-		$this->load->view('inclte/cabecera'); //cabezera
-		$this->load->view('inclte/menusuperior'); //menu
-		$this->load->view('inclte/menulateral');
-		$this->load->view('est_listalte',$data);
-		$this->load->view('inclte/pie'); // pie 
-	}
-	*/
 
 }

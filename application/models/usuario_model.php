@@ -18,7 +18,34 @@
 
 		}
 
-	} 
+		public function listausuarios() //recupera la lista de todos los estudiantes
+		{
+			$this->db->select('*');
+			$this->db->from('usuarios');
+			$this->db->where('habilitado','1');//muestra solo est hab
+			return $this->db->get();
+		}
+
+		public function agregarUsuario($data)
+		{
+			$this->db->insert('usuarios',$data);//inserta a la base de datos
+		}
+
+		public function recuperarestudiante($idestudiante)
+		{
+			$this->db->select('*');
+			$this->db->from('estudiantesok');
+			$this->db->where('idEstudiante',$idestudiante);
+			return $this->db->get();
+
+		}
+
+		public function modificarestudiante($idestudiante,$data)
+		{
+			$this->db->where('idEstudiante',$idestudiante);
+			$this->db->update('estudiantes',$data);
+		}
+} 
 		
 		
 
