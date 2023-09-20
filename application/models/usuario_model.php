@@ -37,6 +37,13 @@ class Usuario_model extends CI_Model
 		$this->db->where('idUsuario', $idusuario);
 		return $this->db->get();
 	}
+	public function recuperarDatosUsuario($idusuario)
+	{
+		$this->db->select('*');
+		$this->db->from('usuarios');
+		$this->db->where('idUsuario', $idusuario);
+		return $this->db->get();
+	}
 
 	public function modificarUsuario($idusuario, $data)
 	{
