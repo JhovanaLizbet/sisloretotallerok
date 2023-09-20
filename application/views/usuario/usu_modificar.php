@@ -4,30 +4,87 @@
 
 	<!-- ------------------------------------------------------------------------------------------ -->
 
-	<h1>Inicio</h1>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<h1> Modificar Estudiante</h1>
-				<?php
-				foreach ($infoUsuario->result() as $row) {
-					// code...
+	<!-- Content Wrapper. Contains page content -->
+	<div class="content-wrapper">
+		<!-- Content Header (Page header) -->
+		<section class="content-header">
+			<div class="container-fluid">
+				<div class="row mb-3">
+					<div class="col-sm-4">
+						<h1></h1>
+					</div>
+					<div class="col-sm-4">
+						<h5 class="text-white">...</h5>
+						<h3 class="text-primary">Modificar datos del Usuario</h3>
+					</div>
+					<div class="col-sm-4">
+						<h1></h1>
+					</div>
+				</div><!-- /.container-fluid -->
+		</section>
 
-					echo form_open_multipart('estudiante/modificarbd');
-				?>
-					<input type="text" name="idestudiante" class="form-control" value="<?php echo $row->idUsuario; ?>">
+		<!-- Main content -->
+		<section id="services" class="services">
+			<div class="container" data-aos="fade-up">
+				<div class="row">
+					<div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+						<div>
 
-					<input type="text" name="nombre" placeholder="Escriba el nombre" class="form-control" value="<?php echo $row->login; ?>">
-					<input type="text" name="apellido1" placeholder="Escriba el primer apellido" class="form-control" value="<?php echo $row->password; ?>">
-					<input type="text" name="apellido2" placeholder="Escriba el segundo apellido" class="form-control" value="<?php echo $row->tipo; ?>">
+						</div>
+					</div>
+					<!----------------------------------- --------------------------------------->
+					<div class="col-5">
+						<div class="card">
+							<div class="card-header">
+								<h4 class="card-title">Modificar los campos que requiere</h4>
 
-					<button type="submit" class="btn btn-success"> MODIFICAR </button>
-				<?php
-					echo form_close();
-				}
+							</div>
+							<!-- /.card-header -->
+							<div class="card-body">
+								<?php
+								foreach ($infoUsuario->result() as $row) {
+									// code...
 
-				?>
+									echo form_open_multipart('usuarios/modificarbd');
+								?>
+									<input type="hidden" name="idusuario" class="form-control" value="<?php echo $row->idUsuario; ?>">
+
+									<input type="text" name="login" class="form-control" value="<?php echo $row->login; ?>">
+									<input type="hidden" name="password" class="form-control" value="<?php echo $row->password; ?>">
+									<input type="text" name="tipo" class="form-control" value="<?php echo $row->tipo; ?>">
+
+									<button type="submit" class="btn btn-success"> MODIFICAR </button>
+								<?php
+									echo form_close();
+								}
+								?>
+
+							</div>
+
+							<a href="<?php echo base_url(); ?>index.php/usuarios/verListaUsuarios">
+								<button class="btn btn-dark">CANCELAR</button>
+							</a>
+
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+						<div>
+
+						</div>
+					</div>
+					<!----------------------------------- --------------------------------------->
+				</div>
+				<!-- /.card-body -->
 			</div>
-		</div>
-
+			<!-- /.card -->
 	</div>
+	<!-- /.col -->
+	</div>
+	<!-- /.row -->
+	</div>
+	<!-- /.container-fluid -->
+	</section>
+	<!-- /.content -->
+	</div>
+	<!-- /.content-wrapper -->

@@ -84,7 +84,7 @@ class Usuarios extends CI_Controller // herencia
 			$this->load->view('incltever/cabecera'); //cabezera
 			$this->load->view('incltever/menusuperior'); //menu superior
 			$this->load->view('incltever/menulateralchatgpt'); //menu lateral
-			$this->load->view('usu_listaUsuarios', $data); //menu centro
+			$this->load->view('usuario/usu_listaUsuarios', $data); // centro
 			$this->load->view('incltever/pie'); // pie
 		}
 		else
@@ -94,6 +94,96 @@ class Usuarios extends CI_Controller // herencia
 
 	}
 
+	public function agregar()
+	{
+		//mostrar un formulario (que va a estar en una vista) para agregar nuevo est
+
+		$this->load->view('incltever/cabecera'); //cabezera
+		$this->load->view('incltever/menusuperior'); //menu
+		$this->load->view('incltever/menulateralchatgpt');
+		$this->load->view('usuario/usu_formularioCrearUsuario'); // centro
+		$this->load->view('incltever/pie'); // pie 
+	}
+
+	public function agregarbd()
+	{
+		//cargamos la libreria validacion (podemos cargar tb )
+		$this->load->library('form_validation');
+
+										  //name
+		$this->form_validation->set_rules('login','Nombre de login','required|min_length[3]|max_length[12]',array('required'=>'Se requiere el apellido paterno','min_length'=>'Por lo menos 3 caracteres','max_length'=>'Maximo 12 caracteres')); 
+		//define las reglas, no admite celda vacia, min 5 y max 12 caracteres, de esta manera se valida el campo nombre
+
+		$this->form_validation->set_rules('tipo','tipo','required|min_length[3]|max_length[12]',array('required'=>'Se requiere el apellido paterno','min_length'=>'Por lo menos 3 caracteres','max_length'=>'Maximo 12 caracteres')); 
+
+		$this->form_validation->set_rules('password', 'password');
+
+		if($this->form_validation->run()==FALSE) 
+		{
+			$this->load->view('incltever/cabecera'); //cabezera
+			$this->load->view('incltever/menusuperior'); //menu
+			$this->load->view('incltever/menulateralchatgpt');
+			$this->load->view('usu_formularioCrearUsuario');
+			$this->load->view('incltever/pie'); // pie 			
+		}
+		else //SI llega los datos validados
+		{
+
+			
+			//atributo BD          formulario         
+			$data['login']=$_POST['login'];
+			$data['tipo']=$_POST['tipo'];
+			$data['password']=$_POST['password'];
+
+			if (isset($_POST['password']))
+			{
+			    // Obtén la contraseña desde el formulario
+			    $contrasena = $_POST['password'];
+			    
+			    // Hashea la contraseña usando password_hash
+			    //$hashContrasena = password_hash($contrasena, PASSWORD_DEFAULT);
+			    
+			    // Asigna el hash de la contraseña al campo 'password'
+			    //$data['password'] = $hashContrasena;
+			    $data['password'] = $contrasena;
+			}
+
+			$this->usuario_model->agregarUsuario($data);
+			redirect('usuarios/mostrarDatosRegistro', 'refresh');
+		}
+	}
+
+	public function modificar()
+	{
+		$idusuario=$_POST['idusuario'];
+		$data['infoUsuario']=$this->usuario_model->recuperarestudiante($idusuario);
+
+		$this->load->view('incltever/cabecera'); //cabezera
+		$this->load->view('incltever/menusuperior'); //menu
+		$this->load->view('incltever/menulateralchatgpt');
+		$this->load->view('usuario/usu_modificar', $data); // centro
+		$this->load->view('incltever/pie'); // pie 
+/*
+		$this->load->view('incltever/cabecera'); //cabezera
+		$this->load->view('incltever/menusuperior'); //menu
+		$this->load->view('incltever/menulateralchatgpt'); //menu
+		$this->load->view('usuario/usu_modificar', $data); // centro
+		$this->load->view('incltever/pie'); // pie 
+*/		
+	}
+/*
+		public function modificarbd()
+	{
+		$idestudiante=$_POST['idestudiante'];
+
+		$data['nombre']=$_POST['nombre'];//construyendo mi array data
+		$data['primerApellido']=$_POST['apellido1'];
+		$data['segundoApellido']=$_POST['apellido2'];
+
+		$this->usuario_model->modificarestudiante($idestudiante,$data);
+		redirect('estudiante/index','refresh');
+	}
+*/
 	public function cambiarContrasenia() //metodo
 	{
 		if ($this->session->userdata('login')) 
@@ -172,71 +262,15 @@ class Usuarios extends CI_Controller // herencia
 	}
 
 	
-	public function agregar()
-	{
-		//mostrar un formulario (que va a estar en una vista) para agregar nuevo est
 
-		$this->load->view('incltever/cabecera'); //cabezera
-		$this->load->view('incltever/menusuperior'); //menu
-		$this->load->view('incltever/menulateralchatgpt');
-		$this->load->view('usu_formularioCrearUsuario');
-		$this->load->view('incltever/pie'); // pie 
-	}
-
-	public function agregarbd()
-	{
-		//cargamos la libreria validacion (podemos cargar tb )
-		$this->load->library('form_validation');
-
-										  //name
-		$this->form_validation->set_rules('login','Nombre de login','required|min_length[3]|max_length[12]',array('required'=>'Se requiere el apellido paterno','min_length'=>'Por lo menos 3 caracteres','max_length'=>'Maximo 12 caracteres')); 
-		//define las reglas, no admite celda vacia, min 5 y max 12 caracteres, de esta manera se valida el campo nombre
-
-		$this->form_validation->set_rules('tipo','tipo','required|min_length[3]|max_length[12]',array('required'=>'Se requiere el apellido paterno','min_length'=>'Por lo menos 3 caracteres','max_length'=>'Maximo 12 caracteres')); 
-
-		$this->form_validation->set_rules('password', 'password');
-
-		if($this->form_validation->run()==FALSE) 
-		{
-			$this->load->view('incltever/cabecera'); //cabezera
-			$this->load->view('incltever/menusuperior'); //menu
-			$this->load->view('incltever/menulateralchatgpt');
-			$this->load->view('usu_formularioCrearUsuario');
-			$this->load->view('incltever/pie'); // pie 			
-		}
-		else //SI llega los datos validados
-		{
-
-			
-			//atributo BD          formulario         
-			$data['login']=$_POST['login'];
-			$data['tipo']=$_POST['tipo'];
-			$data['password']=$_POST['password'];
-
-			if (isset($_POST['password']))
-			{
-			    // Obtén la contraseña desde el formulario
-			    $contrasena = $_POST['password'];
-			    
-			    // Hashea la contraseña usando password_hash
-			    //$hashContrasena = password_hash($contrasena, PASSWORD_DEFAULT);
-			    
-			    // Asigna el hash de la contraseña al campo 'password'
-			    //$data['password'] = $hashContrasena;
-			    $data['password'] = $contrasena;
-			}
-
-			$this->usuario_model->agregarUsuario($data);
-			redirect('usuarios/mostrarDatosRegistro', 'refresh');
-		}
-	}
 
 	public function mostrarDatosRegistro()
     {
-    	$this->load->view('registro_exitoso_usu');
+    	$this->load->view('usuario/usu_registro_exitoso');
     }
 
-	public function modificarUsu()
+
+/*	public function modificarUsu()
 	{
 		$idusuario=$_POST['idusuario'];
 		$data['infousuario']=$this->usuario_model->recuperarUsuario($idusuario);
@@ -247,30 +281,6 @@ class Usuarios extends CI_Controller // herencia
 		//$this->load->view('usu_modificar',$data); //menu centro
 		$this->load->view('incltever/pie'); // pie
 	}
-
-	public function modificar()
-	{
-		$idusuario= $_POST['idusuario'];
-		$data['infoUsuario']=$this->usuario_model->recuperarestudiante($idusuario);
-
-		$this->load->view('incltever/cabecera'); //cabezera
-		$this->load->view('incltever/menusuperior'); //menu
-		$this->load->view('incltever/menulateralchatgpt'); //menu
-		$this->load->view('usu_modificar',$data);
-		$this->load->view('incltever/pie'); // pie 
-	}
-
-		public function modificarbd()
-	{
-		$idestudiante=$_POST['idestudiante'];
-
-		$data['nombre']=$_POST['nombre'];//construyendo mi array data
-		$data['primerApellido']=$_POST['apellido1'];
-		$data['segundoApellido']=$_POST['apellido2'];
-
-		$this->usuario_model->modificarestudiante($idestudiante,$data);
-		redirect('estudiante/index','refresh');
-	}
-
+*/
 
 }
