@@ -34,8 +34,8 @@
 		public function recuperarestudiante($idestudiante)
 		{
 			$this->db->select('*');
-			$this->db->from('estudiantesok');
-			$this->db->where('idEstudiante',$idestudiante);
+			$this->db->from('usuarios');
+			$this->db->where('idUsuario',$idestudiante);
 			return $this->db->get();
 
 		}

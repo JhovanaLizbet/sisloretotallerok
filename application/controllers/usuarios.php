@@ -250,13 +250,14 @@ class Usuarios extends CI_Controller // herencia
 
 	public function modificar()
 	{
-		$idestudiante=$_POST['idestudiante'];
-		$data['infoestudiante']=$this->usuario_model->recuperarestudiante($idestudiante);
+		$idusuario= $_POST['idusuario'];
+		$data['infoUsuario']=$this->usuario_model->recuperarestudiante($idusuario);
 
-		$this->load->view('inc/cabecera'); //cabezera
-		$this->load->view('inc/menu'); //menu
+		$this->load->view('incltever/cabecera'); //cabezera
+		$this->load->view('incltever/menusuperior'); //menu
+		$this->load->view('incltever/menulateralchatgpt'); //menu
 		$this->load->view('usu_modificar',$data);
-		$this->load->view('inc/pie'); // pie 
+		$this->load->view('incltever/pie'); // pie 
 	}
 
 		public function modificarbd()

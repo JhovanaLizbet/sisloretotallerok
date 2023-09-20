@@ -53,10 +53,10 @@
       <?php 
         echo form_open_multipart('usuarios/modificar');
       ?>
-      <input type="hidden" name="idusuario" value="<?php echo $row->idUsuario; ?>">
+      <input type="text" name="idusuario" id="idusuario"> value="<?php echo $row->idUsuario; ?>">
       <!--  <button type="submit" class="btn btn-success">MODIFICAR</button> -->
       <input type="image" src="<?php echo base_url();?>adminlte/dist/img/modificarok4.png">
-            
+  
       <?php
         echo form_close();
       ?>                  
