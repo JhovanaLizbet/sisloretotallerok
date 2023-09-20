@@ -50,7 +50,6 @@
 									<input type="hidden" name="idusuario" class="form-control" value="<?php echo $row->idUsuario; ?>">
 
 									<input type="text" name="login" class="form-control" value="<?php echo $row->login; ?>">
-									<input type="hidden" name="password" class="form-control" value="<?php echo $row->password; ?>">
 									<input type="text" name="tipo" class="form-control" value="<?php echo $row->tipo; ?>">
 
 									<button type="submit" class="btn btn-success"> MODIFICAR </button>

@@ -23,7 +23,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h3>Los datos fueron registrados correctamente.</h3>
+                    <h3>El usuario fue deshabilitado correctamente.</h3>
                 </div>
                 <div class="modal-footer">
                     <a href="<?php echo base_url(); ?>index.php/usuarios/registrarcuenta">
@@ -39,7 +39,7 @@
             $('#datosModal').modal('show');
 
             // Ocultar el modal después de cierto tiempo y redireccionar
-            var tiempoEspera = 2000; // 5 segundos en milisegundos
+            var tiempoEspera = 2000; // 4 segundos en milisegundos
             setTimeout(function() {
                 $('#datosModal').modal('hide');
                 setTimeout(function() {

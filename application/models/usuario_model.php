@@ -30,12 +30,34 @@ class Usuario_model extends CI_Model
 		$this->db->insert('usuarios', $data); //inserta a la base de datos
 	}
 
-	public function recuperarestudiante($idusuario)
+	public function recuperarUsuario($idusuario)
 	{
 		$this->db->select('*');
 		$this->db->from('usuarios');
 		$this->db->where('idUsuario', $idusuario);
 		return $this->db->get();
 	}
+
+	public function modificarUsuario($idusuario, $data)
+	{
+		$this->db->where('idUsuario', $idusuario);
+		$this->db->update('usuarios', $data);
+	}
+
+	public function eliminarUsuario($idusuario)
+	{
+							// BD
+		$this->db->where('idUsuario',$idusuario);
+		$this->db->delete('usuarios');
+	}
+
+	public function listaUsuariosDes() //recupera la lista de todos los estudiantes
+	{
+		$this->db->select('*');
+		$this->db->from('usuarios');
+		$this->db->where('habilitado','0');//muestra solo est hab
+		return $this->db->get();
+	}
+
 
 }

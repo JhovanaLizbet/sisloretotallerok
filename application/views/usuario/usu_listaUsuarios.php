@@ -13,7 +13,7 @@
           <button type="button" class="btn btn-primary">Crear Usuario</button>
         </a>
 
-        <a href="<?php echo base_url(); ?>index.php/estudiante/deshabilitados">
+        <a href="<?php echo base_url(); ?>index.php/usuarios/deshabilitados">
           <button type="button" class="btn btn-warning">Lista deshabilitados</button>
         </a>
 
