@@ -30,6 +30,25 @@ class Usuario_model extends CI_Model
 		$this->db->insert('usuarios', $data); //inserta a la base de datos
 	}
 
+
+	public function obtener_datos_perfil($idusuario)
+	{
+		// Lógica para obtener los datos del perfil del usuario desde la base de datos
+		// Ejemplo:
+		$this->db->select('login, tipo');
+		$this->db->from('usuarios');
+		$this->db->where('idUsuario', $idusuario);
+		$query = $this->db->get();
+
+		if ($query->num_rows() > 0) {
+			return $query->row();
+		} else {
+			return false;
+		}
+	}
+
+
+
 	public function recuperarUsuario($idusuario)
 	{
 		$this->db->select('*');
@@ -53,8 +72,8 @@ class Usuario_model extends CI_Model
 
 	public function eliminarUsuario($idusuario)
 	{
-							// BD
-		$this->db->where('idUsuario',$idusuario);
+		// BD
+		$this->db->where('idUsuario', $idusuario);
 		$this->db->delete('usuarios');
 	}
 
@@ -62,9 +81,7 @@ class Usuario_model extends CI_Model
 	{
 		$this->db->select('*');
 		$this->db->from('usuarios');
-		$this->db->where('habilitado','0');//muestra solo est hab
+		$this->db->where('habilitado', '0'); //muestra solo est hab
 		return $this->db->get();
 	}
-
-
 }
