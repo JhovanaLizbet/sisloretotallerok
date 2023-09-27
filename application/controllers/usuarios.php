@@ -5,6 +5,25 @@ defined('BASEPATH') or exit('No direct script access allowed'); // internamente 
 
 class Usuarios extends CI_Controller // herencia
 {
+	public function probando() //metodo
+	{
+		$this->load->view('incltever/cabecera'); //cabezera
+		$this->load->view('incltever/menusuperior'); //menu superior
+		$this->load->view('incltever/menulateralchatgpt'); //menu lateral
+		$this->load->view('usuario/usu_formularioCrearNuevaCuentaUsuario'); // centro
+		//$this->load->view('usuario/usu_datos', $data); // centro
+		$this->load->view('incltever/pie'); // pie
+
+	}
+	public function crearCuentaNueva() //metodo
+	{
+		$this->load->view('incltever/cabecera'); //cabezera
+		$this->load->view('incltever/menusuperior'); //menu superior
+		$this->load->view('incltever/menulateralchatgpt'); //menu lateral
+		$this->load->view('usuario/usu_formularioCrearCuentaNueva'); // centro
+		$this->load->view('incltever/pie'); // pie		
+	}
+
 	public function bienvenido() //metodo
 	{
 		$this->load->view('inclteok/cabecera'); //cabezera

@@ -10,7 +10,7 @@
     <br>
 
     <a href="<?php echo base_url(); ?>index.php/usuarios/verListaUsuarios">
-        <button type="button" class="btn btn-warning">Ir Lista Habilitados</button>
+        <button type="button" class="btn btn-warning">Lista Habilitados</button>
     </a>
 
     <div id="content">

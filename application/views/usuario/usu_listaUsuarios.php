@@ -13,7 +13,7 @@
   </a>
 
   <a href="<?php echo base_url(); ?>index.php/usuarios/deshabilitados">
-    <button type="button" class="btn btn-warning">Lista deshabilitados</button>
+    <button type="button" class="btn btn-warning">Lista Deshabilitados</button>
   </a>
 
   <div id="content">

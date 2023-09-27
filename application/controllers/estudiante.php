@@ -213,7 +213,7 @@ class Estudiante extends CI_Controller // herencia
 		$this->load->view('inclteok/cabecera'); //cabezera
 		$this->load->view('inclteok/menusuperior'); //menu
 		//$this->load->view('inclte/menulateral');
-		$this->load->view('est_formulariocrearcuenta');
+		$this->load->view('estudiante/est_formulariocrearcuenta');
 		$this->load->view('inclteok/pie'); // pie 
 	}
 
