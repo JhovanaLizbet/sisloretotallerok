@@ -5,87 +5,6 @@ defined('BASEPATH') or exit('No direct script access allowed'); // internamente 
 
 class Usuarios extends CI_Controller // herencia
 {
-	public function index() //metodo
-	{
-		$data['msg'] = $this->uri->segment(3);
-
-		if ($this->session->userdata('login')) // si esxiste un usuario VALIDADO
-		{
-			redirect('usuarios/panel', 'refresh'); // cargamos su panel de trabajo
-		} else {
-			$data['msg'] = $this->uri->segment(3); // 			
-			$this->load->view('login', $data); //llama a   login.php
-			//en este caso llama a  crearcuenta.php
-		}
-	}
-
-	public function validarUsuario()
-	{
-		$login = $_POST['login'];
-		$password = md5($_POST['password']);
-
-		$consulta = $this->usuario_model->validarAdministrador($login, $password);
-
-		if ($consulta->num_rows() > 0) {
-			foreach ($consulta->result() as $row) {
-				//creando mi variable de sesion, mientras este abierta
-				$this->session->set_userdata('idUsuario', $row->id); //
-				$this->session->set_userdata('login', $row->login); //
-				$this->session->set_userdata('tipo', $row->rol); //	
-
-				redirect('usuarios/panel', 'refresh'); // redirigimos a su panel de trabajo	
-			}
-		} else {
-			$consultaCli = $this->usuario_model->validarCliente($login, $password);
-            if ($consultaCli->num_rows() > 0) {
-                foreach ($consultaCli->result() as $row) {
-                    //mientas la sesion este abierta 
-                    $this->session->set_userdata('idCliente', $row->id);
-                    $this->session->set_userdata('login', $row->login);
-                    $this->session->set_userdata('tipo', $row->rol);
-                    $this->session->set_userdata('descripcion', $row->descripcion);
-                    $this->session->set_userdata('email', $row->email);
-                    $this->session->set_userdata('telefonos', $row->telefonos);
-
-                    redirect('usuarios/panel', 'refresh');
-                }
-            } else {
-                redirect('usuarios/index/1', 'refresh');
-            }
-		}
-	}
-
-	// llegan los usuarios logueados correctamente
-	public function panel()
-	{
-		if ($this->session->userdata('login')) // si esxiste una session abierta
-		{
-			$tipo = $this->session->userdata('tipo');
-			if ($tipo == 'administrador') {
-				redirect('administrador/index', 'refresh');
-			} else {
-					redirect('cliente/index', 'refresh');
-				} else {
-					redirect('usuarios/index/2', 'refresh');
-				}
-			}
-		} 
-	
-	// cierre de sesion
-	public function logout()
-	{
-		$this->session->sess_destroy(); //vamos a eliminar las variables de sesion y despues
-		redirect('usuarios/index/3', 'refresh'); // va a redireccionar al login
-	}
-
-    // reestablecemos la contraseña
-    public function recovery()
-    {
-        $this->load->view('recovery');
-    }
-}
-
-/*	
 	public function probando() //metodo
 	{
 		$this->load->view('incltever/cabecera'); //cabezera
@@ -114,9 +33,52 @@ class Usuarios extends CI_Controller // herencia
 
 	}
 
+	public function validarusuario()
+	{
+		$login = $_POST['login'];
+		$password = md5($_POST['password']);
+
+		$consulta = $this->usuario_model->validar($login, $password);
+
+		if ($consulta->num_rows() > 0) {
+			foreach ($consulta->result() as $row) {
+				//creando mi variable de sesion
+				$this->session->set_userdata('idusuario', $row->idUsuario); //
+				$this->session->set_userdata('login', $row->login); //
+				$this->session->set_userdata('tipo', $row->tipo); //	
+
+				redirect('usuarios/panel', 'refresh'); // redirigimos a su panel de trabajo	
+			}
+		} else {
+			redirect('usuarios/index/1', 'refresh');
+		}
+	}
 
 	//llegan todos los usuarios autenticados
+	public function panel()
+	{
+		if ($this->session->userdata('login')) // si esxiste una session abierta
+		{
+			$tipo = $this->session->userdata('tipo');
+			if ($tipo == 'admin') {
+				redirect('usuarios/verListaUsuarios', 'refresh');
+			} else {
+				if ($tipo == 'estudiante') {
+					redirect('estudiante/verListaEstudiante', 'refresh');
+				} else {
+					redirect('usuarios/index/2', 'refresh');
+				}
+			}
+		} else {
+			redirect('usuarios/index/2', 'refresh');
+		}
+	}
 
+	public function logout()
+	{
+		$this->session->sess_destroy(); //vamos a eliminar las variables de sesion y despues
+		redirect('usuarios/index/3', 'refresh'); // va a redireccionar al login
+	}
 
 
 	public function verListaUsuarios() //metodo
@@ -200,7 +162,7 @@ class Usuarios extends CI_Controller // herencia
 		$this->load->view('incltever/pie'); // pie 
 
 	}
-
+*/	
 	public function perfilUsuario()
 	{
 		$idusuario = $this->session->userdata('idusuario');
@@ -241,7 +203,7 @@ class Usuarios extends CI_Controller // herencia
             echo "No se encontraron datos del perfil.";
         }
 	}
-
+*/
 	public function modificar()
 	{
 		$idusuario = $_POST['idusuario'];
@@ -258,7 +220,7 @@ class Usuarios extends CI_Controller // herencia
 		$this->load->view('incltever/menulateralchatgpt'); //menu
 		$this->load->view('usuario/usu_modificar', $data); // centro
 		$this->load->view('incltever/pie'); // pie 
-
+*/
 	}
 	public function modificarbd()
 	{
@@ -351,6 +313,17 @@ class Usuarios extends CI_Controller // herencia
 	}
 
 
+	public function index() //metodo
+	{
+		if ($this->session->userdata('login')) // si esxiste un usuario VALIDADO
+		{
+			redirect('usuarios/panel', 'refresh'); // cargamos su panel de trabajo
+		} else {
+			$data['msg'] = $this->uri->segment(3); // 			
+			$this->load->view('login', $data); //llama a   login.php
+			//en este caso llama a  crearcuenta.php
+		}
+	}
 
 	public function registrarcuenta()
 	{
@@ -391,4 +364,3 @@ class Usuarios extends CI_Controller // herencia
 	}
 	
 }
-*/	

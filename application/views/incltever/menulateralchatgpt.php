@@ -19,7 +19,7 @@
           <a class="d-block">__________________________</a>
         </div>
         <div align="center">
-          <a href="<?php echo base_url(); ?>index.php/usuarios/perfilok">
+          <a href="<?php echo base_url(); ?>index.php/usuarios/perfilUsuario">
             <button type="button" class="btn btn-primary btn-block"><i class="fa fa-user"></i> <b>Ver Mi Perfil</b></button>
           </a>
         </div>

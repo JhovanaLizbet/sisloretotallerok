@@ -1,36 +1,129 @@
 <?php
+
 class Usuario_model extends CI_Model
 {
-	public function validar($login, $password) //recupera la lista de todos los estudiantes
+	public function validarAdministrador($login, $password) //recupera la lista de todos los estudiantes
 	{
 		// con active record ES MEJOR USAR ESTE TIPO DE CONSULTA
 
 		$this->db->select('*');
 		$this->db->from('usuarios');
-		$this->db->where('login', $login); //muestra solo est hab
+		$this->db->where('login', $login); 
 		$this->db->where('password', $password);
+		$this->db->WHERE('estado', '1'); //muestra solo est hab
 		return $this->db->get();
-
-
-		/*consulta en mysql puro
-			$query="SELECT * FROM usuarios WHERE login='$login' AND password='$password'"; return $this->db->query($query);
-			*/
 	}
 
-	public function listausuarios() //recupera la lista de todos los estudiantes
+	public function validarCliente($login, $password) //recupera la lista de todos los estudiantes
+	{
+		$this->db->select('*');
+		$this->db->from('clientes');
+		$this->db->where('login', $login); 
+		$this->db->where('password', $password);
+		$this->db->where('estado', '1'); //muestra solo est hab
+		return $this->db->get();
+	}
+
+	public function verificarNombreUsuario($nombreUsuario)
+    {
+        $this->db->SELECT('*');
+        $this->db->FROM('usuarios');
+        $this->db->WHERE('nombreUsuario', $nombreUsuario);
+        return $this->db->get();
+    }
+	
+	public function verificarNombreUsuarioCliente($nombreUsuario)
+    {
+        $this->db->SELECT('*');
+        $this->db->FROM('cliente');
+        $this->db->WHERE('nombreUsuario', $nombreUsuario);
+        return $this->db->get();
+    }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////	
+/////////////////////////// AHORA REALIZAMOS LAS /////////////////////////////////////////////////	
+/////////////////////////// CONSULTAS  SQL  PARA /////////////////////////////////////////////////	
+/////////////////////////// REALIZAR  LOS  CRUD  /////////////////////////////////////////////////	
+//////////////////////////////////////////////////////////////////////////////////////////////////	
+
+	public function listaUsuarios() //recupera la lista de todos los usuarios
 	{
 		$this->db->select('*');
 		$this->db->from('usuarios');
-		$this->db->where('habilitado', '1'); //muestra solo est hab
+		$this->db->where('id <>', $this->session->userdata('idUsuario'));
+		$this->db->where('estado', '1'); //muestra solo est hab
 		return $this->db->get();
 	}
+
+	public function listaUsuariosLogueados()
+    {
+        $this->db->select('*');
+        $this->db->from('usuarios');
+        $this->db->WHERE('id', $this->session->userdata('idUsuario'));
+        $this->db->where('estado', 1);
+        return $this->db->get();
+    }
+
+	public function datosClientesLogueados($idCliente)
+    {
+        $this->db->select('*');
+        $this->db->from('cliente');
+        $this->db->WHERE('id', $idCliente);
+        $this->db->where('estado', 1);
+        return $this->db->get();
+    }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////	
+//////////////////////////////////// I N S E R T /////////////////////////////////////////////////	
+//////////////////////////////////////////////////////////////////////////////////////////////////	
 
 	public function agregarUsuario($data)
 	{
 		$this->db->insert('usuarios', $data); //inserta a la base de datos
 	}
 
+//////////////////////////////////////////////////////////////////////////////////////////////////	
+//////////////////////////////////// RECUPERAMOS /////////////////////////////////////////////////	
+//////////////////////////////////////////////////////////////////////////////////////////////////	
 
+	public function recuperarDatosUsuario($idUsuario)
+	{
+		$this->db->select('*');
+		$this->db->from('usuarios');
+		$this->db->where('id', $idUsuario);
+		return $this->db->get();
+	}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////	
+//////////////////////////////////// MODIFICAMOS /////////////////////////////////////////////////	
+//////////////////////////////////////////////////////////////////////////////////////////////////	
+
+	public function modificarUsuario($idUsuario, $data)
+	{
+		$this->db->where('id', $idUsuario);
+		$this->db->update('usuarios', $data);
+	}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////	
+//////////////////////////////////// ELIMINAMOS //////////////////////////////////////////////////
+///////////////////////////////// DESHABILITAMOS /////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////	
+
+	public function deshabilitarUsuario($idUsuario, $data) //recupera la lista de todos los estudiantes
+	{
+		// BD
+		$this->db->where('id', $idUsuario);
+		$this->db->update('usuarios', $data);
+		return $this->db->get();
+	}
+}
+/*
+	public function eliminarUsuario($idusuario)
+	{
+		// BD
+		$this->db->where('idUsuario', $idusuario);
+		$this->db->delete('usuarios');
+	}
 	public function obtener_datos_perfil($idusuario)
 	{
 		// Lógica para obtener los datos del perfil del usuario desde la base de datos
@@ -47,13 +140,6 @@ class Usuario_model extends CI_Model
 		}
 	}
 
-	public function recuperarUsuario($idusuario)
-	{
-		$this->db->select('*');
-		$this->db->from('usuarios');
-		$this->db->where('idUsuario', $idusuario);
-		return $this->db->get();
-	}
 	public function recuperarDatosUsuario($idusuario)
 	{
 		$this->db->select('*');
@@ -61,25 +147,5 @@ class Usuario_model extends CI_Model
 		$this->db->where('idUsuario', $idusuario);
 		return $this->db->get();
 	}
-
-	public function modificarUsuario($idusuario, $data)
-	{
-		$this->db->where('idUsuario', $idusuario);
-		$this->db->update('usuarios', $data);
-	}
-
-	public function eliminarUsuario($idusuario)
-	{
-		// BD
-		$this->db->where('idUsuario', $idusuario);
-		$this->db->delete('usuarios');
-	}
-
-	public function listaUsuariosDes() //recupera la lista de todos los estudiantes
-	{
-		$this->db->select('*');
-		$this->db->from('usuarios');
-		$this->db->where('habilitado', '0'); //muestra solo est hab
-		return $this->db->get();
-	}
 }
+*/
