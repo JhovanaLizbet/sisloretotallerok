@@ -153,17 +153,37 @@ class Usuarios extends CI_Controller // herencia
 			redirect('usuarios/mostrarDatosRegistro', 'refresh');
 		}
 	}
-
+/*
 	public function verPerfil()
 	{
 		$this->load->view('incltever/cabecera'); //cabezera
 		$this->load->view('incltever/menusuperior'); //menu
-		$this->load->view('incltever/menulateralchatgpt');
-		
+		$this->load->view('incltever/menulateralchatgpt');		
 		$this->load->view('incltever/pie'); // pie 
 
 	}
-	public function perfil()
+*/	
+	public function perfilok()
+	{
+		$idusuario = $this->session->userdata('idusuario');
+        
+		$this->load->view('incltever/cabecera'); //cabezera
+		$this->load->view('incltever/menusuperior'); //menu superior
+		$this->load->view('incltever/menulateralchatgpt'); //menu lateral
+
+		$datos_perfil = $this->usuario_model->obtener_datos_perfil($idusuario);
+        if ($datos_perfil) {
+            // Pasa los datos del perfil a la vista
+            $data['perfil'] = $datos_perfil;
+            $this->load->view('perfil', $data);
+        } else {
+            // Manejar el caso en que no se encuentren los datos del perfil
+            echo "No se encontraron datos del perfil.";
+        }$this->load->view('incltever/pie'); // pie
+
+
+	}
+/*	public function perfil()
 	{
 		// Asegúrate de que el usuario esté autenticado y obtén su ID de usuario
         $idusuario = $this->session->userdata('idusuario');
@@ -183,7 +203,7 @@ class Usuarios extends CI_Controller // herencia
             echo "No se encontraron datos del perfil.";
         }
 	}
-
+*/
 	public function modificar()
 	{
 		$idusuario = $_POST['idusuario'];

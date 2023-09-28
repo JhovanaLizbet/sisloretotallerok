@@ -47,8 +47,6 @@ class Usuario_model extends CI_Model
 		}
 	}
 
-
-
 	public function recuperarUsuario($idusuario)
 	{
 		$this->db->select('*');
