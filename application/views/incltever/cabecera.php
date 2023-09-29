@@ -22,31 +22,31 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="<?php echo base_url();?>lib/animate/animate.min.css" rel="stylesheet">
-    <link href="<?php echo base_url();?>lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="<?php echo base_url(); ?>lib/animate/animate.min.css" rel="stylesheet">
+    <link href="<?php echo base_url(); ?>lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="<?php echo base_url();?>css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo base_url(); ?>css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="<?php echo base_url();?>css/style.css" rel="stylesheet">
-<!-- ------------------------------------------------------------------------------------------------ -->
+    <link href="<?php echo base_url(); ?>css/style.css" rel="stylesheet">
+    <!-- ------------------------------------------------------------------------------------------------ -->
     <!-- plugins:css -->
-    <link rel="stylesheet" href="<?php echo base_url();?>vendors/feather/feather.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>vendors/ti-icons/css/themify-icons.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>vendors/feather/feather.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>vendors/css/vendor.bundle.base.css">
     <!-- endinject -->
     <!-- Plugin css for this page -->
-    <link rel="stylesheet" href="<?php echo base_url();?>vendors/datatables.net-bs4/dataTables.bootstrap4.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>vendors/ti-icons/css/themify-icons.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>js/select.dataTables.min.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>js/select.dataTables.min.css">
     <!-- End plugin css for this page -->
     <!-- inject:css -->
-     <!--<link rel="stylesheet" href="<?php echo base_url();?>css/vertical-layout-light/style.css">
+    <!--<link rel="stylesheet" href="<?php echo base_url(); ?>css/vertical-layout-light/style.css">
     endinject -->
     <link rel="shortcut icon" href="images/favicon.png" />
 
-    
+
 
     <style>
         input:invalid {
@@ -58,15 +58,25 @@
             display: none;
         }
 
+        .tabla-contenedor {
+            max-height: 400px;
+            /* Establece la altura máxima del contenedor */
+            overflow-y: auto;
+            /* Agrega una barra de desplazamiento vertical cuando sea necesario */
+        }
+
+        }
     </style>
     <style>
         .match-tick::before {
-            content: "✔"; /* Símbolo de marca de verificación */
+            content: "✔";
+            /* Símbolo de marca de verificación */
             color: green;
             font-size: 20px;
-            margin-right: 5px; /* Espacio entre el símbolo y el texto */
+            margin-right: 5px;
+            /* Espacio entre el símbolo y el texto */
         }
     </style>
-    
+
 </head>
 <!--                                  FIN  CABECERA                                   -->

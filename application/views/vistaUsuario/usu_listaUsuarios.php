@@ -8,15 +8,15 @@
     <!-- Agrega el contenido de tu página aquí -->
   </div>
   <br>
-  <a href="<?php echo base_url(); ?>index.php/usuarios/agregar">
-    <button type="button" class="btn btn-primary">Crear Usuario</button>
+  <a href="<?php echo base_url(); ?>index.php/usuarios/agregarClienteBDD">
+    <button type="button" class="btn btn-primary">Crear Usuario  <i class="fa fa-user-plus"></i></button>
   </a>
 
   <a href="<?php echo base_url(); ?>index.php/usuarios/deshabilitados">
     <button type="button" class="btn btn-warning">Lista Deshabilitados</button>
   </a>
 
-  <div id="content">
+  <div id="content" class="tabla-contenedor">
 
     <table id="example" class="table table-bordered table-striped">
       <thead align="center" style="color: black;">

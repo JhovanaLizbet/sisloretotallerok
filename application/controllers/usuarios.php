@@ -97,6 +97,7 @@ class Usuarios extends CI_Controller // herencia
 	////////////////////////////////// USUARIO ///////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////////	
 
+	
 
 	public function agregarClienteBDD()
 	{
@@ -124,7 +125,7 @@ class Usuarios extends CI_Controller // herencia
 			$characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+=-';
 			$password = substr(str_shuffle($characters), 0, 8);
 
-			$data['contrasenia'] = md5($password);
+			$data['password'] = md5($password);
 
 			$datos_registro = array('nameUser' => $username, 'contraseniaUser' => $password);
 
