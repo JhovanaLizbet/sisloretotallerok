@@ -11,11 +11,18 @@ class Cliente extends CI_Controller // herencia
 			$idClienteLogueado = $this->session->userdata('idCliente');
 			$datosCliente = $this->usuario_model->datosClientesLogueados($idClienteLogueado);
 			$data['datosCliente'] = $datosCliente;
+
+			$this->load->view('incltever/cabecera'); //cabezera
+			$this->load->view('incltever/menusuperior'); //menu superior
+			$this->load->view('incltever/menulateralchatgpt'); //menu lateral
+			//$this->load->view('vistaUsuario/usu_listaUsuarios',$data); // centro
+			$this->load->view('incltever/pie'); // pie
+			/*
 			$this->load->view('vistaProductor/extem/1_cabecera');
 			$this->load->view('vistaProductor/extem/2_menu_Superior');
 			$this->load->view('vistaProductor/extem/3_menu_Lateral');
 			$this->load->view('vistaProductor/vistaUsuario/inicio_lte', $data);
-			$this->load->view('vistaProductor/extem/4_pie');
+			$this->load->view('vistaProductor/extem/4_pie');*/
 		} else {
 			redirect('usuarios/index/2', 'refresh');
 		}
@@ -26,6 +33,11 @@ class Cliente extends CI_Controller // herencia
 		if ($this->session->userdata('login')) {
 			$idCliente = $_POST['idCliente'];
 			$data['datosCliente'] = $this->cliente_model->recuperarDatosCliente($idCliente);
+
+			$this->load->view('incltever/cabecera'); //cabezera
+			$this->load->view('incltever/menusuperior'); //menu superior
+			$this->load->view('incltever/menulateralchatgpt'); //menu lateral
+			$this->load->view('incltever/pie'); // pie
 
 			$this->load->view('vistaProductor/extem/1_cabecera');
 			$this->load->view('vistaProductor/extem/2_menu_Superior');

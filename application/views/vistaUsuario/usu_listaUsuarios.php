@@ -22,10 +22,15 @@
       <thead align="center" style="color: black;">
         <tr bgcolor="#3CC6FA">
           <th>No</th>
-          <th>Login</th>
-          <th>Password</th>
-          <th>Tipo</th>
-          <th>Fecha Creacion</th>
+          <th>Nombre Completo</th>
+          <th>Fecha de Nacimiento</th>
+          <th>Email</th>
+          <th>Celular</th>
+          <th>Sexo</th>
+          <th>Nombre de Usuario</th>
+          <th>password</th>
+          <th>Rol</th>
+          <th>Fecha Registro</th>
           <th>Fecha Actualizacion</th>
           <th>Modificar</th>
           <th>Eliminar</th>
@@ -36,15 +41,20 @@
       <tbody>
         <?php
         $indice = 1; //el contador comienza en 1
-        foreach ($usuarios->result() as $row) // de la base de datos
+        foreach ($listaUsuarios->result() as $row) // de la base de datos
         {
         ?>
           <tr>
             <td><?php echo $indice; ?></td> <!--//el id es interno por tanto no se muestra por tanto manejamos contadores-->
-            <td><?php echo $row->login; ?></td>
-            <td><?php echo $row->password; ?></td>
-            <td><?php echo $row->tipo; ?></td>
-            <td><?php echo formatearFecha($row->creado); ?></td>
+            <td><?php echo $row->nombres.' '.$row->primerApellido.' '.$row->segundoApellido ?></td>
+            <td><?php echo $row->fechaNacimiento ?></td>
+            <td><?php echo $row->email ?></td>
+            <td><?php echo $row->telefono ?></td>
+            <td><?php echo $row->sexo ?></td>
+            <td><?php echo $row->nombreUsuario ?></td>
+            <td><?php echo $row->password ?></td>
+            <td><?php echo $row->rol ?></td>            
+            <td><?php echo formatearFecha($row->fechaRegistro); ?></td>
             <td><?php echo formatearFecha($row->fechaActualizacion); ?></td>
 
             <td>
@@ -98,10 +108,15 @@
       <tfoot>
         <tr align="center" bgcolor="#3CC6FA" style="color: black;">
           <th>No</th>
-          <th>Login</th>
-          <th>Password</th>
-          <th>Tipo</th>
-          <th>Fecha Creacion</th>
+          <th>Nombre Completo</th>
+          <th>Fecha de Nacimiento</th>
+          <th>Email</th>
+          <th>Celular</th>
+          <th>Sexo</th>
+          <th>Nombre de Usuario</th>
+          <th>password</th>
+          <th>Rol</th>
+          <th>Fecha Registro</th>
           <th>Fecha Actualizacion</th>
           <th>Modificar</th>
           <th>Eliminar</th>

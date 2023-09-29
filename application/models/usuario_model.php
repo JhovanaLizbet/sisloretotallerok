@@ -8,7 +8,7 @@ class Usuario_model extends CI_Model
 
 		$this->db->select('*');
 		$this->db->from('usuarios');
-		$this->db->where('login', $login); 
+		$this->db->where('nombreUsuario', $login); 
 		$this->db->where('password', $password);
 		$this->db->WHERE('estado', '1'); //muestra solo est hab
 		return $this->db->get();
