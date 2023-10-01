@@ -97,6 +97,17 @@ class Usuarios extends CI_Controller // herencia
 	////////////////////////////////// USUARIO ///////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////////	
 
+	public function agregarCliente()
+	{
+		//mostrar un formulario (que va a estar en una vista) para agregar nuevo est
+
+		$this->load->view('incltever/cabecera'); //cabezera
+		$this->load->view('incltever/menusuperior'); //menu
+		$this->load->view('incltever/menulateralchatgpt');
+		$this->load->view('vistaUsuario/usu_formAgregarCuentaNueva'); // centro
+		$this->load->view('incltever/pie'); // pie 
+	}
+
 	
 
 	public function agregarClienteBDD()

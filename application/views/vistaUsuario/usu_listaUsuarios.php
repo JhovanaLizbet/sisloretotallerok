@@ -8,7 +8,7 @@
     <!-- Agrega el contenido de tu página aquí -->
   </div>
   <br>
-  <a href="<?php echo base_url(); ?>index.php/usuarios/agregarClienteBDD">
+  <a href="<?php echo base_url(); ?>index.php/usuarios/agregarCliente">
     <button type="button" class="btn btn-primary">Crear Usuario  <i class="fa fa-user-plus"></i></button>
   </a>
 
@@ -125,6 +125,8 @@
       </tfoot>
     </table>
   </div>
+
+  
 </main>
 </div>
 </div>
