@@ -59,13 +59,9 @@
         }
 
         .tabla-contenedor {
-            max-height: 400px;
-            /* Establece la altura máxima del contenedor */
-            overflow-y: auto;
-            /* Agrega una barra de desplazamiento vertical cuando sea necesario */
-        }
-
-        }
+            max-height: 400px;  /* Establece la altura máxima del contenedor */
+            overflow-y: auto;   /* Agrega una barra de desplazamiento vertical cuando sea necesario */
+        }        
     </style>
     <style>
         .match-tick::before {

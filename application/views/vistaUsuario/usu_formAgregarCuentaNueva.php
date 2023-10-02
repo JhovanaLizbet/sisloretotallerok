@@ -44,83 +44,56 @@
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <?php
-                                echo form_open_multipart('estudiante/agregarbd');
+                                echo form_open_multipart('usuarios/agregarClienteBDD');
                                 ?>
-                                <!---
-<form>
-        <label for="palabra">Ingrese una palabra:</label>
-        <input type="text" id="palabra" name="palabra" onkeyup="validarPalabras()" required>
-        <span id="mensaje-error" style="display: none; color: red;">Solo se permiten letras.</span>
-    </form>
--->
 
-                                <b>Nombre:</b>
-                                <!---
-          <input type="text" id="palabra" name="nombre" placeholder="Escriba el nombre" class="form-control" value="<?php echo set_value('nombre'); ?>">
-          -->
-                                <input type="text" id="nombre" name="nombre" placeholder="Escriba el nombre" class="form-control input-md" value="<?php echo set_value('nombre'); ?>" pattern="[A-Za-z]+" required>
-                                <div class="error-message" id="nombre-error">Solo se permiten letras</div>
+                                <b>Nombre Completo:</b>
+                                <input type="text" id="nombres" name="nombres" placeholder="Nombres" class="form-control input-md" autocomplete="off" required aria-invalid="true" pattern="[A-Za-zñÑ\s]+" required>
+                                <div class="error-message" id="nombres-error">Solo se permiten letras</div>
 
+                                <?php echo form_error('nombres'); ?> <!-- --> <!-- -->
 
+                                <input type="text" id="primerApellido" name="primerApellido" class="form-control input-md" placeholder="Apellido Paterno" required aria-invalid="true" pattern="[A-Za-zñÑ\s]+" required>
+                                <div class="error-message" id="primerApellido-error">Solo se permiten letras</div>
 
-                                <?php echo form_error('nombre'); ?> <!-- --> <!-- -->
+                                <?php echo form_error('primerApellido'); ?>
 
-                                <b>Apellido Paterno:</b>
-                                <input type="text" id="apellido" name="apellido1" title="Solo se permiten letras" placeholder="Escriba el primer apellido" class="form-control input-md" value="<?php echo set_value('apellido1'); ?>" pattern="[A-Za-z]+" required>
-                                <div class="error-message" id="apellido-error">Solo se permiten letras</div>
+                                <input type="text" id="segundoApellido" name="segundoApellido" class="form-control input-md" placeholder="Apellido Materno" required aria-invalid="true" pattern="[A-Za-zñÑ\s]+" required>
+                                <div class="error-message" id="segundoApellido-error">Solo se permiten letras</div>
 
-
-                                <?php echo form_error('apellido1'); ?>
-
-                                <b>Apellido Materno:</b>
-                                <input type="text" id="apellidom" name="apellido2" placeholder="Escriba el segundo apellido" class="form-control input-md" value="<?php echo set_value('apellido2'); ?>" pattern="[A-Za-z]+" required>
-                                <div class="error-message" id="apellidom-error">Solo se permiten letras</div>
-
-                                <?php echo form_error('apellido2'); ?>
+                                <?php echo form_error('segundoApellido'); ?>
 
                                 <b>Carnet de Identidad:</b>
-                                <input type="text" id="ci" name="ci" pattern="[0-9]+" placeholder="Escriba su carnet de identidad" class="form-control input-md" value="<?php echo set_value('ci'); ?>" required>
+                                <input type="text" id="ci" name="ci" class="form-control input-md" placeholder="Carnet de identidad" required aria-invalid="true" pattern="[0-9]+" required>
                                 <div class="error-message" id="ci-error">Solo se permiten números</div>
 
                                 <?php echo form_error('ci'); ?>
 
-                                <b>Fecha de Nacimiento:</b>
-                                <input type="date" id="fechaNacimiento" name="fechaNacimiento">
+                                <br>Sexo:</br>
+                                <select class="form-control input-md" id="sexo" name="sexo">
+                                    <option value="M">Masculino</option>
+                                    <option value="F">Femenino</option>
+                                </select>
 
+                                <?php echo form_error('sexo'); ?>
+
+                                <b>Fecha de Nacimiento:</b>
+                                <input type="date" id="fechaNacimiento" name="fechaNacimiento" class="form-control" required aria-invalid="true">
 
                                 <?php echo form_error('fechaNacimiento'); ?>
 
-                                <!--  
-          <b>Fecha de Nacimiento:</b>
-          <input type="text" name="fechanac" placeholder="Escriba la fecha de su nacimiento" class="form-control" value="<?php echo set_value('fechanac'); ?>">
--->
-                                <?php echo form_error('fechanac'); ?>
-
-                                <br>Sexo:</br>
-                                <select name="genero" placeholder="Escriba su genero" class="form-control input-md" value="<?php echo set_value('genero'); ?>">
-                                    <option value="M">Hombre</option>
-                                    <option value="F">Mujer</option>
-                                </select>
-
-                                <?php echo form_error('genero'); ?>
-
-                                <b>Direccion:</b>
-                                <input type="text" name="direccion" placeholder="Escriba su direccion" class="form-control input-md" value="<?php echo set_value('direccion'); ?>">
-
-                                <?php echo form_error('direccion'); ?>
-
                                 <b>Correo Electronico:</b>
-                                <input type="email" id="email" name="email" placeholder="Escriba su direccion de correo electronico" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" class="form-control input-md" value="<?php echo set_value('email'); ?>">
-
+                                <input type="email" id="email" name="email" placeholder="Direccion de correo electronico" class="form-control input-md" required aria-invalid="true" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" required>
                                 <?php echo form_error('email'); ?>
 
-
                                 <b>Celular:</b>
-                                <input type="text" id="celular" name="celular" pattern="[0-9]+" placeholder="Escriba su numero de celular" class="form-control input-md" value="<?php echo set_value('celular'); ?>">
-                                <div class="error-message" id="celular-error">Solo se permiten números</div>
+                                <input type="text" id="telefono" name="telefono" placeholder="Numero de celular" class="form-control input-md" required aria-invalid="true" pattern="[0-9]+">
+                                <div class="error-message" id="telefono-error">Solo se permiten números</div>
+                                <?php echo form_error('telefono'); ?>
 
-
-                                <?php echo form_error('celular'); ?>
+                                <b>Direccion:</b>
+                                <input type="text" name="direccion" placeholder="Direccion donde vive" class="form-control input-md" required aria-invalid="true">
+                                <?php echo form_error('direccion'); ?>
 
                                 <b>Contraseña: </b>
                                 <input type="password" id="password1" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Debe contener al menos un número y una letra mayúscula y minúscula, y al menos 8 o más caracteres" placeholder="Escriba su contraseña" class="form-control input-md" value="<?php echo set_value('password'); ?>" required>
@@ -136,20 +109,16 @@
 
                                 <br></br>
 
-                                <button type="submit" class="btn btn-success"> REGISTRAR </button>
+                                <button type="submit" class="btn btn-success"> REGISTRAR <i class="fa fa-user-plus"></i></button>
 
                                 <?php
                                 echo form_close();
                                 ?>
                             </div>
-                            <a href="<?php echo base_url(); ?>index.php/usuarios/verListaUsuarios">
-                                <button class="btn btn-dark">CANCELAR</button>
+                            <a href="<?php echo base_url(); ?>index.php/administrador/index">
+                                <button class="btn btn-dark">CANCELAR <i class="bi bi-x-circle"></i></button>
                             </a>
-
-
-
                         </div>
-
                     </div>
 
                     <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">

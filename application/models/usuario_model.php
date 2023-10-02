@@ -55,6 +55,15 @@ class Usuario_model extends CI_Model
 		return $this->db->get();
 	}
 
+	public function listaUsuariosDeshabilitados() //recupera la lista de todos los usuarios
+	{
+		$this->db->select('*');
+		$this->db->from('usuarios');
+		$this->db->where('id <>', $this->session->userdata('idUsuario'));
+		$this->db->where('estado', '0'); //muestra solo est hab
+		return $this->db->get();
+	}
+
 	public function listaUsuariosLogueados()
     {
         $this->db->select('*');
@@ -86,7 +95,7 @@ class Usuario_model extends CI_Model
 //////////////////////////////////// RECUPERAMOS /////////////////////////////////////////////////	
 //////////////////////////////////////////////////////////////////////////////////////////////////	
 
-	public function recuperarDatosUsuario($idUsuario)
+	public function recuperarDatosDelUsuario($idUsuario)
 	{
 		$this->db->select('*');
 		$this->db->from('usuarios');
@@ -105,8 +114,7 @@ class Usuario_model extends CI_Model
 	}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////	
-//////////////////////////////////// ELIMINAMOS //////////////////////////////////////////////////
-///////////////////////////////// DESHABILITAMOS /////////////////////////////////////////////////
+/////////////////////////// ELIMINAMOS/DESHABILITAMOS ////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////	
 
 	public function deshabilitarUsuario($idUsuario, $data) //recupera la lista de todos los estudiantes
@@ -114,8 +122,17 @@ class Usuario_model extends CI_Model
 		// BD
 		$this->db->where('id', $idUsuario);
 		$this->db->update('usuarios', $data);
-		return $this->db->get();
 	}
+//////////////////////////////////////////////////////////////////////////////////////////////////	
+////////////////////////////////// HABILITAMOS ///////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////	
+
+public function habilitarUsuario($idUsuario, $data) //recupera la lista de todos los estudiantes
+{
+	// BD
+	$this->db->where('id', $idUsuario);
+	$this->db->update('usuarios', $data);
+}	
 }
 /*
 	public function eliminarUsuario($idusuario)

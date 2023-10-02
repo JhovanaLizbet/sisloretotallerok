@@ -23,7 +23,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h3>Los datos fueron modificados correctamente.</h3>
+                    <h3>El usuario fue creado correctamente.</h3>
                 </div>
                 <div class="modal-footer">
                     <a href="<?php echo base_url(); ?>index.php/administrador/index">

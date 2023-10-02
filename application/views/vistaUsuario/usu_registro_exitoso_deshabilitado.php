@@ -23,10 +23,10 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h3>El usuario fue deshabilitado correctamente.</h3>
+                    <h3>El usuario fue eliminado correctamente.</h3>
                 </div>
                 <div class="modal-footer">
-                    <a href="<?php echo base_url(); ?>index.php/usuarios/registrarcuenta">
+                    <a href="<?php echo base_url(); ?>index.php/administrador/index">
                         <button class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     </a>
                 </div>
@@ -39,11 +39,11 @@
             $('#datosModal').modal('show');
 
             // Ocultar el modal después de cierto tiempo y redireccionar
-            var tiempoEspera = 2000; // 4 segundos en milisegundos
+            var tiempoEspera = 1500; // 3 segundos en milisegundos
             setTimeout(function() {
                 $('#datosModal').modal('hide');
                 setTimeout(function() {
-                    window.location.href = "<?php echo base_url(); ?>index.php/usuarios/verListaUsuarios";
+                    window.location.href = "<?php echo base_url(); ?>index.php/administrador/index";
                 }, 500); // Esperar 500 milisegundos antes de redireccionar
             }, tiempoEspera);
         });

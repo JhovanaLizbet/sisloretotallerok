@@ -12,7 +12,7 @@ class Administrador extends CI_Controller // herencia
             $listaUsuarios = $this->usuario_model->listaUsuarios();
             $data['listaUsuarios'] = $listaUsuarios;
             $listaUsuarios = $this->usuario_model->listaUsuariosLogueados();
-            $data['listaUsuarios'] = $listaUsuarios;
+            $data['listaUsuariosLogueados'] = $listaUsuarios;
 
             $this->load->view('incltever/cabecera'); //cabezera
             $this->load->view('incltever/menusuperior'); //menu superior
@@ -259,7 +259,7 @@ class Administrador extends CI_Controller // herencia
 
     public function mostrarDatosRegistro()
     {
-        // Load PHPMailer library
+        /* Load PHPMailer library
         $this->load->library('phpmailer_lib');
 
         // PHPMailer object
@@ -297,8 +297,15 @@ class Administrador extends CI_Controller // herencia
             echo 'Mailer Error: ' . $mail->ErrorInfo;
         } else {
         }
-        $this->load->view('vistaAdministrador/productor/registro_exitoso_view'); ///////??????????????
-    }
+        $this->load->view('vistaAdministrador/cliente/usu_registro_exitoso_modificado'); ///////??????????????
+        */
+        redirect('usuarios/mostrarDatosRegistroNuevo', 'refresh');
+	}
+
+	public function mostrarDatosRegistroNuevo()
+	{
+		$this->load->view('vistaAdministrador/cliente/usu_registro_exitoso_creado');
+	}
 
     public function modificarCliente()
     {

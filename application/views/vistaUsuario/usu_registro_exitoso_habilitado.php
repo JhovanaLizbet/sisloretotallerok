@@ -26,7 +26,7 @@
                     <h3>El usuario fue habilitado correctamente.</h3>
                 </div>
                 <div class="modal-footer">
-                    <a href="<?php echo base_url(); ?>index.php/usuarios/deshabilitados">
+                    <a href="<?php echo base_url(); ?>index.php/usuarios/listaDeshabilitados">
                         <button class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     </a>
                 </div>
@@ -39,11 +39,11 @@
             $('#datosModal').modal('show');
 
             // Ocultar el modal después de cierto tiempo y redireccionar
-            var tiempoEspera = 2000; // 4 segundos en milisegundos
+            var tiempoEspera = 1000; // 2 segundos en milisegundos
             setTimeout(function() {
                 $('#datosModal').modal('hide');
                 setTimeout(function() {
-                    window.location.href = "<?php echo base_url(); ?>index.php/usuarios/deshabilitados";
+                    window.location.href = "<?php echo base_url(); ?>index.php/usuarios/listaDeshabilitados";
                 }, 500); // Esperar 500 milisegundos antes de redireccionar
             }, tiempoEspera);
         });
