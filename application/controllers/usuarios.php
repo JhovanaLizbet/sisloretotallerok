@@ -40,6 +40,7 @@ class Usuarios extends CI_Controller // herencia
 				$this->session->set_userdata('idUsuario', $row->id); //
 				$this->session->set_userdata('login', $row->nombreUsuario); //
 				$this->session->set_userdata('tipo', $row->rol); //	
+				$this->session->set_userdata('nombreApellido', $row->nombreApellido);
 
 				redirect('usuarios/panel', 'refresh'); // redirigimos a su panel de trabajo	
 			}
@@ -51,6 +52,7 @@ class Usuarios extends CI_Controller // herencia
 					$this->session->set_userdata('idCliente', $row->id);
 					$this->session->set_userdata('login', $row->nombreUsuario);
 					$this->session->set_userdata('tipo', $row->rol);
+					$this->session->set_userdata('nombreApellido', $row->nombreApellido);
 					$this->session->set_userdata('descripcion', $row->descripcion);
 					$this->session->set_userdata('email', $row->email);
 					$this->session->set_userdata('telefonos', $row->telefonos);

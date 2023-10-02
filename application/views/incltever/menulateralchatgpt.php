@@ -7,7 +7,7 @@
 
         <div>
           <h7 align="center" style="color: transparent;">Adminstrador</h7>
-          <h5 align="center">Usuario: <?php echo $this->session->userdata('login'); ?></h5>
+          <h5 align="center">Usuario: <?php echo $this->session->userdata('nombreApellido'); ?></h5>
         </div>
         <div align="center">
           <img src="<?php echo base_url(); ?>img/userman4.png" class="brand-image img-circle elevation-3" style="opacity: .8">

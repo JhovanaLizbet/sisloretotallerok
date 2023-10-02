@@ -13,6 +13,9 @@ class Administrador extends CI_Controller // herencia
             $data['listaUsuarios'] = $listaUsuarios;
             $listaUsuarios = $this->usuario_model->listaUsuariosLogueados();
             $data['listaUsuariosLogueados'] = $listaUsuarios;
+            //$listaUsuarios = $this->usuario_model->listaUsuariosLogueadosNombres();
+            //$data['listaUsuariosLogueadosNombres'] = $listaUsuarios;
+
 
             $this->load->view('incltever/cabecera'); //cabezera
             $this->load->view('incltever/menusuperior'); //menu superior
