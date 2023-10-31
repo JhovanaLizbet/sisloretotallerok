@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>403 Forbidden</title>
+</head>
+<body>
+
+    <form action="<?= base_url('reportes/generar_reporte') ?>" method="post">
+        <label for="desde">Desde:</label>
+        <input type="date" name="desde" id="desde" required>
+        <label for="hasta">Hasta:</label>
+        <input type="date" name="hasta" id="hasta" required>
+        <input type="submit" value="Generar Reporte">
+    </form>
+    
+</body>
+</html>

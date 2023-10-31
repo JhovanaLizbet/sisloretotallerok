@@ -58,38 +58,48 @@
                                         <option value="M" selected>Masculino</option>
                                     </select>
                                 </div>
-                                <div class="col-md-3 form-group">
-                                    <label for="exampleInputEmail1">Teléfono/Celular:</label>
-                                    <input type="number" class="form-control" required aria-invalid="true" id="telefonos" name="telefonos" placeholder="Añada telefono o celular del productor">
-                                </div>
-                                <div class="col-md-3 form-group">
-                                    <label for="exampleInputEmail1">Correo Electrónico:</label>
-                                    <input type="email" class="form-control" required aria-invalid="true" id="email" name="email" placeholder="Ingrese email del productor">
-                                </div>
+                                <div class="row">
 
-                                <div class="col-md-3 form-group">
-                                    <label for="exampleInputEmail1">Descripción:</label>
-                                    <input type="text" class="form-control" required aria-invalid="true" id="descripcion" name="descripcion" placeholder="Añada una descripción del productor">
-                                </div>
+                                    <div class="col-md-3 form-group">
+                                        <label for="nombre">Rol:</label>
+                                        <select name="rol_id">
+                                            <?php foreach ($roles as $rol) : ?>
+                                                <option value="<?php echo $rol->id; ?>"><?php echo $rol->nombre; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 form-group">
+                                        <label for="exampleInputEmail1">Teléfono/Celular:</label>
+                                        <input type="number" class="form-control" required aria-invalid="true" id="telefonos" name="telefonos" placeholder="Añada telefono o celular del productor">
+                                    </div>
+                                    <div class="col-md-3 form-group">
+                                        <label for="exampleInputEmail1">Correo Electrónico:</label>
+                                        <input type="email" class="form-control" required aria-invalid="true" id="email" name="email" placeholder="Ingrese email del productor">
+                                    </div>
 
+                                    <div class="col-md-3 form-group">
+                                        <label for="exampleInputEmail1">Descripción:</label>
+                                        <input type="text" class="form-control" required aria-invalid="true" id="descripcion" name="descripcion" placeholder="Añada una descripción del productor">
+                                    </div>
+
+                                </div>
                             </div>
+                            <!-- /.card-body -->
+
+                            <div class="row">
+                                <div class="col-md-3 form-group">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <button type="submit" class="btn btn-primary btn-block">Agregar Productor <i class="fa-solid fa-user-plus fa-xl"></i></button>
+                                </div>
+                                <div class="col-md-3 form-group"></div>
+                            </div>
+                            <?php echo form_close(); ?>
                         </div>
-                        <!-- /.card-body -->
 
-                        <div class="row">
-                            <div class="col-md-3 form-group">
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <button type="submit" class="btn btn-primary btn-block">Agregar Productor   <i class="fa-solid fa-user-plus fa-xl"></i></button>
-                            </div>
-                            <div class="col-md-3 form-group"></div>
-                        </div>
-                        <?php echo form_close(); ?>
                     </div>
-
-                </div>
-                <!-- /.row -->
-            </div><!-- /.container-fluid -->
+                    <!-- /.row -->
+                </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
 </div>

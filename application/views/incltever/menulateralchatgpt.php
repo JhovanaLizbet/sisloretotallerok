@@ -1,4 +1,5 @@
 <!-- Menú lateral -->
+
 <div class="container-fluid">
   <div class="row">
     <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
@@ -30,23 +31,60 @@
 
         <ul class="nav flex-column">
           <!-- Agrega tus elementos de menú aquí -->
-          <li class="nav-item">
-            <a class="nav-link active" href="#">
+          <li class="nav-item" >
+            <a class="nav-link active"   href="<?php echo base_url(); ?>index.php/usuarios/bienvenida">
               <i class="fas fa-home"></i> Inicio
             </a>
           </li>
+
           <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="fas fa-user"></i> Perfil
+            <a class="nav-link" href="<?php echo base_url(); ?>index.php/administrador/index">
+              <i class="fas fa-user"></i> Usuarios
+            </a>
+          </li>    
+          
+          <li class="nav-item">
+            <a class="nav-link" href="<?php echo base_url(); ?>index.php/administrador/indexClientes">
+              <i class="fas fa-users"></i> Clientes
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="fas fa-cog"></i> Configuración
+            <a class="nav-link" href="<?php echo base_url(); ?>index.php/administrador/indexCursos">
+              <i class="fas fa-swimmer"></i> Cursos
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?php echo base_url(); ?>index.php/administrador/indexInstructores">
+              <i class="fas fa-user-tie"></i> Instructores
+            </a>
+          </li>
+          <li class="nav-item">
+						<a class="nav-link" href="<?php echo base_url(); ?>index.php/inscripcion/verRangosEntreFechas">
+							<i class="fas fa-swimmer"></i> Reportes
+						</a>
+					</li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="<?php echo base_url(); ?>index.php/administrador/indexRoles">
+            <i class="fa fa-star"></i> Rol
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="<?php echo base_url(); ?>index.php/administrador/indexComunicados">
+              <i class="fas fa-address-book"></i> Comunicados
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?php echo base_url(); ?>index.php/administrador/indexAmbientes">
+            <i class="fa fa-swimming-pool"></i> Ambientes
+            </a>
+          </li>
+
+
           <!-- Agrega más elementos de menú según sea necesario -->
         </ul>
+        <script src="<?php echo base_url(); ?>js/scripts.js"></script>
       </div>
     </nav>
 

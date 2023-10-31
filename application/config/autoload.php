@@ -135,4 +135,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('estudiante_model','usuario_model','cliente_model','carrera_model','clases_model','contrasenia_model','password_model');//VAMOS INCRUSTAR model estudiante, model de usuario
+$autoload['model'] = array('reporte_model','usuario_model','cliente_model','instructor_model','cursos_model','roles_model','carrera_model','clases_model','contrasenia_model','password_model');//VAMOS INCRUSTAR model estudiante, model de usuario

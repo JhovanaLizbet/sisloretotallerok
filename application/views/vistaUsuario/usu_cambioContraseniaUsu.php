@@ -1,3 +1,10 @@
+<!-- Contenedor principal al lado derecho -->
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <!-- Contenido principal de tu página -->
+
+  <!-- ------------------------------------------------------------------------------------------ -->
+  
+
 <div class="content-wrapper" style="min-height: 1474.88px;">
     <!-- Content Header (Page header) -->
     <section class="content-header">

@@ -8,26 +8,67 @@ class Cliente extends CI_Controller // herencia
 	public function index()
 	{
 		if ($this->session->userdata('login')) {
-			$idClienteLogueado = $this->session->userdata('idCliente');
-			$datosCliente = $this->usuario_model->datosClientesLogueados($idClienteLogueado);
+
+			$idClienteLogeado = $this->session->userdata('idCliente');
+			$datosCliente = $this->usuario_model->datosClienteLogeado($idClienteLogeado);
 			$data['datosCliente'] = $datosCliente;
 
 			$this->load->view('incltever/cabecera'); //cabezera
-			$this->load->view('incltever/menusuperior'); //menu superior
-			$this->load->view('incltever/menulateralchatgpt'); //menu lateral
-			//$this->load->view('vistaUsuario/usu_listaUsuarios',$data); // centro
+			$this->load->view('incltever/02_menu_superior'); //menu superior
+			$this->load->view('incltever/03_menu_lateral_cliente'); //menu lateral
+			$this->load->view('vistaAdministrador/cliente/cli_09_sesionClientes',$data); // centro
 			$this->load->view('incltever/pie'); // pie
 			/*
-			$this->load->view('vistaProductor/extem/1_cabecera');
-			$this->load->view('vistaProductor/extem/2_menu_Superior');
-			$this->load->view('vistaProductor/extem/3_menu_Lateral');
-			$this->load->view('vistaProductor/vistaUsuario/inicio_lte', $data);
-			$this->load->view('vistaProductor/extem/4_pie');*/
+*/
 		} else {
 			redirect('usuarios/index/2', 'refresh');
 		}
 	}
+	public function indexBuscar()
+	{
+		if ($this->session->userdata('login')) {
+			
+			
 
+			$this->load->view('busqueda_view');
+			$this->load->view('vistaAdministrador/cliente/cli_11_mostrarCursos'); // centrobusqueda_view
+			$this->load->view('incltever/pie'); // pie
+			/*
+*/
+		} else {
+			redirect('usuarios/index/2', 'refresh');
+		}
+	}
+	public function indexListarCursos()
+	{
+		if ($this->session->userdata('login')) {
+			
+			$this->load->view('cursos_view');
+			$this->load->view('incltever/pie'); // pie
+			/*
+*/
+		} else {
+			redirect('usuarios/index/2', 'refresh');
+		}
+	}
+	///////////////////////////////////////////////////////////
+	public function mostrar()
+	{	
+		//valor a Buscar
+		$buscar = $this->input->post("buscar");
+		$numeropagina = $this->input->post("nropagina");
+		$cantidad = $this->input->post("cantidad");
+		
+		$inicio = ($numeropagina -1)*$cantidad;
+		$data = array(
+			"clientes" => $this->cliente_model->buscar($buscar,$inicio,$cantidad),
+			"totalregistros" => count($this->cliente_model->buscar($buscar)),
+			"cantidad" =>$cantidad
+			
+		);
+		echo json_encode($data);
+	}
+///////////////////////////////////////////////////////////////////77
 	public function modificarClienteDatos()
 	{
 		if ($this->session->userdata('login')) {
@@ -115,4 +156,23 @@ class Cliente extends CI_Controller // herencia
 			redirect('usuarios/index', 'refresh');
 		}
 	}
+	public function preInscripcion()
+	{
+		if ($this->session->userdata('login')) {
+
+			
+
+			$this->load->view('incltever/cabecera'); //cabezera
+			$this->load->view('incltever/02_menu_superior'); //menu superior
+			$this->load->view('incltever/03_menu_lateral_cliente'); //menu lateral
+			//$this->load->view('vistaAdministrador/cliente/cli_09_sesionClientes',$data); // centro
+			$this->load->view('incltever/pie'); // pie
+			/*
+*/
+		} else {
+			redirect('usuarios/index/2', 'refresh');
+		}
+
+	}
+
 }

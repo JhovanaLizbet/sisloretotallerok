@@ -5,15 +5,36 @@ defined('BASEPATH') or exit('No direct script access allowed'); // internamente 
 
 class Usuarios extends CI_Controller // herencia
 {
-	public function bienvenida()
+	public function index()  //ok
 	{
-		$this->load->view('incltever/cabecera'); //cabezera
-		$this->load->view('incltever/menusuperior'); //menu superior
-		$this->load->view('incltever/menulateralchatgpt'); //menu lateral
-		$this->load->view('incltever/pie'); // pie
+		$this->load->view('incltever/01_cabecera_admin'); //cabezera
+		$this->load->view('incltever/02a_menu_superior_admin'); //menu superior
+		$this->load->view('incltever/centro'); //menu lateral
+		$this->load->view('incltever/04_pie_admin'); // pie
+	}
+	public function bienvenida()  //ok
+	{
+		if ($this->session->userdata('login')) {
+
+			$listaUsuarios = $this->usuario_model->listaUsuarios();
+			$data['listaUsuarios'] = $listaUsuarios;
+			$listaUsuarios = $this->usuario_model->listaUsuariosLogueados();
+			$data['listaUsuariosLogueados'] = $listaUsuarios;
+
+			$this->load->view('incltever/01_cabecera_admin'); //cabezera
+			$this->load->view('incltever/02_menu_superior_admin'); //menu superior
+			$this->load->view('incltever/03_menu_lateral_ini_admin'); //menu lateral
+			$this->load->view('vistaUsuario/usu_bienvenida',$data); //menu lateral
+			$this->load->view('incltever/04_pie_admin'); // pie
+		} else {
+			redirect('usuarios/index', 'refresh');
+		}
 	}
 
-	public function index() //metodo
+	//////////////////////////////////////////////////////////////////////////////////////////////////	
+	////////////// MUESTRA INDEX Y A LA VEZ LA LISTA DE USUARIOS HABILITADOS /////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////////		
+	public function indexLogin() //metodo
 	{
 		$data['msg'] = $this->uri->segment(3);
 
@@ -45,17 +66,15 @@ class Usuarios extends CI_Controller // herencia
 				redirect('usuarios/panel', 'refresh'); // redirigimos a su panel de trabajo	
 			}
 		} else {
-			$consultaCli = $this->usuario_model->validarCliente($login, $password);
-			if ($consultaCli->num_rows() > 0) {
-				foreach ($consultaCli->result() as $row) {
-					//mientas la sesion este abierta 
+			$consulta2 = $this->usuario_model->validarCliente($login, $password);
+			if ($consulta2->num_rows() > 0) {
+				foreach ($consulta2->result() as $row) {
+					//mientas la secion este abierta se puede llamar desde cualquier parte del proyecto
 					$this->session->set_userdata('idCliente', $row->id);
 					$this->session->set_userdata('login', $row->nombreUsuario);
 					$this->session->set_userdata('tipo', $row->rol);
 					$this->session->set_userdata('nombreApellido', $row->nombreApellido);
-					$this->session->set_userdata('descripcion', $row->descripcion);
-					$this->session->set_userdata('email', $row->email);
-					$this->session->set_userdata('telefonos', $row->telefonos);
+
 
 					redirect('usuarios/panel', 'refresh');
 				}
@@ -64,15 +83,13 @@ class Usuarios extends CI_Controller // herencia
 			}
 		}
 	}
-
 	// llegan los usuarios logueados correctamente
 	public function panel()
 	{
-		if ($this->session->userdata('login')) // si esxiste una session abierta
-		{
+		if ($this->session->userdata('login')) {
 			$tipo = $this->session->userdata('tipo');
-			if ($tipo == 'administrador') {
-				redirect('administrador/index', 'refresh');
+			if ($tipo == 'Administrador') {
+				redirect('usuarios/bienvenida', 'refresh');/////////
 			} else {
 				redirect('cliente/index', 'refresh');
 			}
@@ -95,44 +112,161 @@ class Usuarios extends CI_Controller // herencia
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////	
-	////////////////////////// MOSTRAR LISTA DE USUARIOS DESHABILITADOS //////////////////////////////
+	//////////////////// MOSTRAR LISTA DE USUARIOS DESHABILITADOS ////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////////	
 
-	public function listaDeshabilitados() //metodo
+	public function listaUsuariosDeshabilitados() //metodo
 	{
-		$lista = $this->usuario_model->listaUsuariosDeshabilitados();
-		$data['listaUsuarios'] = $lista;
+		if ($this->session->userdata('login')) // si esxiste un usuario VALIDADO
+		{
+			//redirect('usuarios/panel', 'refresh'); // cargamos su panel de trabajo
+			$listaUsuarios = $this->usuario_model->listaUsuarios();
+			$data['listaUsuarios'] = $listaUsuarios;
+			$listaUsuarios = $this->usuario_model->listaUsuariosLogueados();
+			$data['listaUsuariosLogueados'] = $listaUsuarios;
 
-		$this->load->view('incltever/cabecera'); //cabezera
-		$this->load->view('incltever/menusuperior'); //menu
-		$this->load->view('incltever/menulateralchatgpt');
-		$this->load->view('vistaUsuario/usu_listaUsuariosDeshabilitados', $data); // centro
-		$this->load->view('incltever/pie'); // pie 
+			$lista = $this->usuario_model->listaUsuariosDeshabilitados();
+			$data['listaUsuarios'] = $lista;
+
+			$this->load->view('incltever/01_cabecera_admin'); //cabezera
+			$this->load->view('incltever/02_menu_superior_admin'); //menu superior
+			$this->load->view('incltever/03_menu_lateral_ini_admin'); //menu lateral
+			$this->load->view('vistaUsuario/usu_04_listaUsuariosDeshabilitados', $data);
+			$this->load->view('incltever/04_pie_admin'); // pie
+
+
+			/*
+			$this->load->view('incltever/cabecera'); //cabezera
+			$this->load->view('incltever/02_menu_superior'); //menu
+			$this->load->view('incltever/menulateralchatgpt');
+			$this->load->view('vistaUsuario/usu_04_listaUsuariosDeshabilitados', $data); // centro
+			$this->load->view('incltever/pie'); // pie 
+redirect('usuarios/panel', 'refresh'); // cargamos su panel de trabajo*/
+		} else {
+			$data['msg'] = $this->uri->segment(3); // 			
+			$this->load->view('login', $data); //llama a   login.php
+			//en este caso llama a  crearcuenta.php
+		}
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////	
 	/////////////////////////// AHORA REALIZAMOS LOS /////////////////////////////////////////////////	
 	////////////////////////////// CRUD EN LA TABLA //////////////////////////////////////////////////
-	////////////////////////////////// USUARIO ///////////////////////////////////////////////////////
+	///////////////////////////////// USUARIOS ///////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////////	
 
-
 	//////////////////////////////////////////////////////////////////////////////////////////////////	
-	/////////////////////////////////////////// INSERTAR /////////////////////////////////////////////
+	//////////////////////////// REGISTRARSE / CLIENTE INI ///////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////////	
-
-	public function agregarCliente()
+	public function registrarCli()
 	{
-		//mostrar un formulario (que va a estar en una vista) para agregar nuevo est
+		if ($this->session->userdata('login')) // si esxiste un usuario VALIDADO
+		{
+			$this->load->view('incltever/01_cabecera_admin'); //cabezera
+			$this->load->view('incltever/02_menu_superior_admin'); //menu superior
+			$this->load->view('incltever/03_menu_lateral_ini_admin'); //menu lateral
+			$this->load->view('vistaUsuarioGeneral/usugen_01_formAgregarNuevoCliente'); // centro
+			$this->load->view('incltever/04_pie_admin'); // pie
+/*
+			$this->load->view('incltever/cabecera'); //cabezera
+			$this->load->view('incltever/01_menu_superior'); //menu
+			$this->load->view('vistaUsuarioGeneral/usugen_01_formAgregarNuevoCliente'); // centro
+			$this->load->view('incltever/pie'); // pie 
 
-		$this->load->view('incltever/cabecera'); //cabezera
-		$this->load->view('incltever/menusuperior'); //menu
-		$this->load->view('incltever/menulateralchatgpt');
-		$this->load->view('vistaUsuario/usu_formAgregarCuentaNueva'); // centro
-		$this->load->view('incltever/pie'); // pie 
+			redirect('usuarios/panel', 'refresh'); // cargamos su panel de trabajo*/
+		} else {
+			$data['msg'] = $this->uri->segment(3); // 			
+			$this->load->view('login', $data); //llama a   login.php
+			//en este caso llama a  crearcuenta.php
+		}
 	}
 
-	public function agregarClienteBDD()
+	//////////////////////////////////////////////////////////////////////////////////////////////////	
+	//////////////////////////// REGISTRARSE BDD / CLIENTE INI ///////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////////	
+	public function registrarCliBDD()
+	{
+		if ($this->session->userdata('login')) // si esxiste un usuario VALIDADO
+		{
+			$data['nombres'] = $_POST['nombres'];
+			$data['primerApellido'] = $_POST['primerApellido'];
+			$data['segundoApellido'] = $_POST['segundoApellido'];
+			$data['ci'] = $_POST['ci'];
+			$data['fechaNacimiento'] = $_POST['fechaNacimiento'];
+			$data['sexo'] = $_POST['sexo'];
+			$data['razonSocial'] = $_POST['razonSocial'];
+			$data['direccion'] = $_POST['direccion'];
+			$data['email'] = $_POST['email'];
+			$data['telefono'] = $_POST['telefono'];
+			$data['rol'] = 'Cliente'; // PONE POR DEFECTO EL ROL DE Cliente
+
+			$data['idUsuario'] = $this->session->userdata('idUsuario');
+
+			/////////////// SE GENERA EL NOMBRE DE USUARIO //////////////////////////////////
+			$nombre = $_POST['nombres'];
+			$primerApellido = $_POST['primerApellido'];
+			$segundoApellido = $_POST['segundoApellido'];
+			$email = $_POST['email'];
+			$nombreCompletoReceptor = $nombre . ' ' . $primerApellido . ' ' . $segundoApellido;
+
+			$username = $this->generarNombreUsuarioUnico($nombre, $primerApellido, $segundoApellido);
+
+			$data['nombreUsuario'] = $username;
+
+			/////////////// SE GENERA EL PASSWORD //////////////////////////////////
+
+			//$characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+=-';
+			//$password = substr(str_shuffle($characters), 0, 8);
+
+			//$data['password'] = md5($password);
+			$data['password'] = md5($_POST['password']);
+			//$password=md5($_POST['password']);
+
+			$datos_registro = array('nameUser' => $username);
+
+			$this->session->set_userdata('datos_registro', $datos_registro);
+
+			$this->session->set_userdata('NombreReceptor', $nombreCompletoReceptor);
+			$this->session->set_userdata('nombreUsuarioReceptor', $username);
+			//$this->session->set_userdata('contraseniaReceptor', $password);
+			//$this->session->set_userdata('correoReceptor', $email);
+
+			$this->cliente_model->agregarCliente($data);
+			redirect('usuarios/mostrarDatosRegistroNuevoUsuIni', 'refresh');
+		} else {
+			$data['msg'] = $this->uri->segment(3); // 			
+			$this->load->view('login', $data); //llama a   login.php
+			//en este caso llama a  crearcuenta.php
+		}
+	}
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////	
+	//////////////////////////// INSERTAR / AGREGAR //////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////////	
+
+	public function agregarUsuario()  // ok
+	{
+		if ($this->session->userdata('login')) {
+
+			$this->load->view('incltever/01_cabecera_admin'); //cabezera
+			$this->load->view('incltever/02_menu_superior_admin'); //menu superior
+			$this->load->view('incltever/03_menu_lateral_ini_admin'); //menu lateral
+			$this->load->view('vistaUsuario/usu_01_formAgregarNuevoUsuario'); //menu lateral
+			$this->load->view('incltever/04_pie_admin'); // pie
+
+/*
+			$this->load->view('incltever/cabecera'); //cabezera
+			$this->load->view('incltever/02_menu_superior'); //menu
+			$this->load->view('incltever/menulateralchatgpt');
+			$this->load->view('vistaUsuario/usu_01_formAgregarNuevoUsuario'); // centro
+			$this->load->view('incltever/pie'); // pie 
+*/			
+		} else {
+			redirect('usuarios/index', 'refresh');
+		}
+	}
+
+	public function agregarUsuarioBDD() // ok
 	{
 		if ($this->session->userdata('login')) {
 			$data['nombres'] = $_POST['nombres'];
@@ -144,9 +278,10 @@ class Usuarios extends CI_Controller // herencia
 			$data['telefono'] = $_POST['telefono'];
 			$data['direccion'] = $_POST['direccion'];
 			$data['email'] = $_POST['email'];
-			$data['rol'] = 'Administrador';
+			$data['rol'] = $_POST['rol']; // 
 			$data['idUsuario'] = $this->session->userdata('idUsuario');
 
+			/////////////// SE GENERA EL NOMBRE DE USUARIO //////////////////////////////////
 			$nombre = $_POST['nombres'];
 			$primerApellido = $_POST['primerApellido'];
 			$segundoApellido = $_POST['segundoApellido'];
@@ -157,32 +292,36 @@ class Usuarios extends CI_Controller // herencia
 
 			$data['nombreUsuario'] = $username;
 
-			$characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+=-';
-			$password = substr(str_shuffle($characters), 0, 8);
+			/////////////// SE GENERA EL PASSWORD //////////////////////////////////
 
-			$data['password'] = md5($password);
+			//$characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+=-';
+			//$password = substr(str_shuffle($characters), 0, 8);
 
-			$datos_registro = array('nameUser' => $username, 'contraseniaUser' => $password);
+			//$data['password'] = md5($password);
+			$data['password'] = md5($_POST['password']);
+			//$password=md5($_POST['password']);
+
+			$datos_registro = array('nameUser' => $username);
 
 			$this->session->set_userdata('datos_registro', $datos_registro);
 
 			$this->session->set_userdata('NombreReceptor', $nombreCompletoReceptor);
 			$this->session->set_userdata('nombreUsuarioReceptor', $username);
-			$this->session->set_userdata('contraseniaReceptor', $password);
-			$this->session->set_userdata('correoReceptor', $email);
+			//$this->session->set_userdata('contraseniaReceptor', $password);
+			//$this->session->set_userdata('correoReceptor', $email);
 
 			$this->usuario_model->agregarUsuario($data);
-			redirect('administrador/mostrarDatosRegistro', 'refresh');
+			redirect('usuarios/mostrarDatosRegistroUsu', 'refresh');
 		} else {
 			redirect('usuarios/index', 'refresh');
 		}
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////	
-	////////////////////////////////////////// MODIFICAR /////////////////////////////////////////////
+	/////////////////////////// MODIFICAR ////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////////	
-
-	public function modificarUsuario()
+	/*
+	public function modificarUsuarioPerfil()
 	{
 		if ($this->session->userdata('login')) {
 			$idUsuario = $_POST['idUsuario'];
@@ -191,9 +330,33 @@ class Usuarios extends CI_Controller // herencia
 			$this->load->view('incltever/cabecera'); //cabezera
 			$this->load->view('incltever/menusuperior'); //menu
 			$this->load->view('incltever/menulateralchatgpt');
-			$this->load->view('vistaUsuario/usu_modificarUsuarios', $data); // centro
+			$this->load->view('vistaUsuario/usu_modificarUsuariosPerfil', $data); // centro
 			$this->load->view('incltever/pie'); // pie 
 
+		} else {
+			redirect('usuarios/index', 'refresh');
+		}
+	}
+*/
+
+	public function modificarUsuario() // ok
+	{
+		if ($this->session->userdata('login')) {
+			$idUsuario = $_POST['idUsuario'];
+			$data['datosDelUsuario'] = $this->usuario_model->recuperarDatosDelUsuario($idUsuario);
+
+			$this->load->view('incltever/01_cabecera_admin'); //cabezera
+			$this->load->view('incltever/02_menu_superior_admin'); //menu superior
+			$this->load->view('incltever/03_menu_lateral_ini_admin'); //menu lateral
+			$this->load->view('vistaUsuario/usu_02_modificarUsuarios', $data);
+			$this->load->view('incltever/04_pie_admin'); // pie
+/*
+			$this->load->view('incltever/cabecera'); //cabezera
+			$this->load->view('incltever/02_menu_superior'); //menu
+			$this->load->view('incltever/menulateralchatgpt');
+			$this->load->view('vistaUsuario/usu_02_modificarUsuarios', $data); // centro
+			$this->load->view('incltever/pie'); // pie 
+*/
 		} else {
 			redirect('usuarios/index', 'refresh');
 		}
@@ -213,18 +376,19 @@ class Usuarios extends CI_Controller // herencia
 			$data['email'] = $_POST['email'];
 			$data['telefono'] = $_POST['telefono'];
 			$data['direccion'] = $_POST['direccion'];
+			$data['rol'] = $_POST['rol'];
 			$data['fechaActualizacion'] = date('y-m-d H:i:s');
 			$data['idUsuario'] = $this->session->userdata('idUsuario');
 
 			$this->usuario_model->modificarUsuario($idUsuario, $data);
-			redirect('usuarios/mostrarDatosRegistroMod', 'refresh');
+			redirect('usuarios/mostrarDatosRegistroModUsu', 'refresh');
 		} else {
 			redirect('usuarios/index', 'refresh');
 		}
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////	
-	///////////////////////////// DESHABILITAR / ELIMINAR ////////////////////////////////////////////
+	//////////////////////// DESHABILITAR / ELIMINAR /////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////////	
 
 	public function deshabilitarUsuario()
@@ -236,14 +400,14 @@ class Usuarios extends CI_Controller // herencia
 			$data['estado'] = '0';
 
 			$this->usuario_model->deshabilitarUsuario($idUsuario, $data);
-			redirect('usuarios/mostrarDatosRegistroDes', 'refresh');
+			redirect('usuarios/mostrarDatosRegistroDesUsu', 'refresh');
 		} else {
 			redirect('usuarios/index', 'refresh');
 		}
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////	
-	///////////////////////////////////////// HABILITAR //////////////////////////////////////////////
+	//////////////////////////// HABILITAR ///////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////////	
 
 	public function habilitarUsuario()
@@ -255,7 +419,7 @@ class Usuarios extends CI_Controller // herencia
 			$data['estado'] = '1';
 
 			$this->usuario_model->habilitarUsuario($idUsuario, $data);
-			redirect('usuarios/mostrarDatosRegistroHab', 'refresh');
+			redirect('usuarios/mostrarDatosRegistroHabUsu', 'refresh');
 		} else {
 			redirect('usuarios/index', 'refresh');
 		}
@@ -389,7 +553,7 @@ class Usuarios extends CI_Controller // herencia
 	//////////////////// Se muestran los Datos Registrados ///////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////////	
 
-	public function mostrarDatosRegistro()
+	public function mostrarDatosRegistroUsu()
 	{
 		/* Load PHPMailer library
 		$this->load->library('phpmailer_lib');
@@ -431,22 +595,27 @@ class Usuarios extends CI_Controller // herencia
 		}
 		*/
 
-		redirect('usuarios/mostrarDatosRegistroNuevo', 'refresh');
+		redirect('usuarios/mostrarDatosRegistroNuevoUsu', 'refresh');
+	}
+	/////////////////////////////////////////////////////////////////////////////////////////////////
+	public function mostrarDatosRegistroNuevoUsuIni()
+	{
+		$this->load->view('vistaUsuarioGeneral/usugen_05_registro_exitoso_01_creado');
+	}
+	////////////////////////////////////////////////////////////////////////////////////////////////
+	public function mostrarDatosRegistroNuevoUsu() //ok
+	{
+		$this->load->view('vistaUsuario/usu_05_registro_exitoso_01_creado');
 	}
 
-	public function mostrarDatosRegistroNuevo()
+	public function mostrarDatosRegistroModUsu()
 	{
-		$this->load->view('vistaAdministrador/cliente/usu_registro_exitoso_creado');
+		redirect('usuarios/mostrarDatosRegistroModificadoUsu', 'refresh');
 	}
 
-	public function mostrarDatosRegistroMod()
+	public function mostrarDatosRegistroModificadoUsu()
 	{
-		redirect('usuarios/mostrarDatosRegistroModificado', 'refresh');
-	}
-
-	public function mostrarDatosRegistroModificado()
-	{
-		$this->load->view('vistaUsuario/usu_registro_exitoso_modificado');
+		$this->load->view('vistaUsuario/usu_06_registro_exitoso_02_modificado');
 	}
 
 	public function mostrarDatosRegistroEli()
@@ -459,24 +628,24 @@ class Usuarios extends CI_Controller // herencia
 		$this->load->view('vistaUsuario/usu_registro_exitoso_deshabilitado');
 	}
 
-	public function mostrarDatosRegistroDes()
+	public function mostrarDatosRegistroDesUsu()
 	{
-		redirect('usuarios/mostrarDatosRegistroDeshabilitado', 'refresh');
+		redirect('usuarios/mostrarDatosRegistroDeshabilitadoUsu', 'refresh');
 	}
 
-	public function mostrarDatosRegistroDeshabilitado()
+	public function mostrarDatosRegistroDeshabilitadoUsu()
 	{
-		$this->load->view('vistaUsuario/usu_registro_exitoso_deshabilitado');
+		$this->load->view('vistaUsuario/usu_07_registro_exitoso_03_deshabilitado');
 	}
 
-	public function mostrarDatosRegistroHab()
+	public function mostrarDatosRegistroHabUsu()
 	{
-		redirect('usuarios/mostrarDatosRegistroHabilitado', 'refresh');
+		redirect('usuarios/mostrarDatosRegistroHabilitadoUsu', 'refresh');
 	}
 
-	public function mostrarDatosRegistroHabilitado()
+	public function mostrarDatosRegistroHabilitadoUsu()
 	{
-		$this->load->view('vistaUsuario/usu_registro_exitoso_habilitado');
+		$this->load->view('vistaUsuario/usu_08_registro_exitoso_04_habilitado');
 	}
 }
 

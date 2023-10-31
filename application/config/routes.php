@@ -52,3 +52,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+$route['default_controller'] = 'cursos';
+$route['default_controller'] = 'busqueda';
+
+// En application/config/routes.php
+$route['formulario-inscripcion'] = 'inscripcion/formulario_inscripcion';
+$route['procesar-inscripcion'] = 'inscripcion/procesar_inscripcion';
+$route['inscripcion/confirmacion'] = 'inscripcion/confirmacion';
+$route['inscripcion/crear'] = 'inscripcion/crear';
+// application/config/routes.php
+$route['recibo/(:num)'] = 'recibo/generarReciboPDF/$1';
+// application/config/routes.php
+$route['recibo/(:num)'] = 'recibo/generarReciboPDF/$1';
+
+
+
+

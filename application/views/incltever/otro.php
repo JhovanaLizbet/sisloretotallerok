@@ -80,7 +80,7 @@
 
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-99">
-        <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+        <a href="" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
             <img class="img-fluid" src="<?php echo base_url();?>img/loretosin.png" width="75px" alt="">
             <h4 class="m-0 text-primary">Centro Acuatico<br>Loreto</br></h2>
         </a>
@@ -89,7 +89,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="index.html" class="nav-item nav-link active">Inicio</a>
+                <a href="" class="nav-item nav-link active">Iniciootrosdfsdfsdfsdf</a>
                 <a href="about.html" class="nav-item nav-link">Nosotros</a>
                 <!--  <a href="courses.html" class="nav-item nav-link">Courses</a> -->  
                 <div class="nav-item dropdown">
@@ -121,24 +121,24 @@
 
     <nav class="navbar navbar-expand-lg bg-blue navbar-light shadow sticky-top p-0">        
         <div class="collapse navbar-collapse" id="navbarCollapse">
-            <a href="index.html" class="nav-item nav-link active"></a>
-            <a href="index.html" class="nav-item nav-link active"></a>        
-            <a href="index.html" class="nav-item nav-link active"></a>        
-            <a href="index.html" class="nav-item nav-link active"></a>        
-            <a href="index.html" class="nav-item nav-link active"></a>        
-            <a href="index.html" class="nav-item nav-link active"></a>        
-            <a href="index.html" class="nav-item nav-link active"></a>        
-            <a href="index.html" class="nav-item nav-link active"></a>        
-            <a href="index.html" class="nav-item nav-link active"></a>        
-            <a href="index.html" class="nav-item nav-link active"></a>        
-            <a href="index.html" class="nav-item nav-link active"></a>        
-            <a href="index.html" class="nav-item nav-link active"></a>        
-            <a href="index.html" class="nav-item nav-link active"></a>        
-            <a href="index.html" class="nav-item nav-link active"></a>        
-            <a href="index.html" class="nav-item nav-link active"></a>        
-            <a href="index.html" class="nav-item nav-link active">Bienvenid@: <?php echo $this->session->userdata('login'); ?></a>
-            <a href="index.html" class="nav-item nav-link active">Rol: <?php echo $this->session->userdata('tipo'); ?></a>
-                <a href="index.html" class="nav-item nav-link active">Fecha: <?php echo date('d/m/Y'); ?></a>                     
+            <a href="" class="nav-item nav-link active"></a>
+            <a href="" class="nav-item nav-link active"></a>        
+            <a href="" class="nav-item nav-link active"></a>        
+            <a href="" class="nav-item nav-link active"></a>        
+            <a href="" class="nav-item nav-link active"></a>        
+            <a href="" class="nav-item nav-link active"></a>        
+            <a href="" class="nav-item nav-link active"></a>        
+            <a href="" class="nav-item nav-link active"></a>        
+            <a href="" class="nav-item nav-link active"></a>        
+            <a href="" class="nav-item nav-link active"></a>        
+            <a href="" class="nav-item nav-link active"></a>        
+            <a href="" class="nav-item nav-link active"></a>        
+            <a href="" class="nav-item nav-link active"></a>        
+            <a href="" class="nav-item nav-link active"></a>        
+            <a href="" class="nav-item nav-link active"></a>        
+            <a href="" class="nav-item nav-link active">Bienvenid@: <?php echo $this->session->userdata('login'); ?></a>
+            <a href="" class="nav-item nav-link active">Rol: <?php echo $this->session->userdata('tipo'); ?></a>
+                <a href="" class="nav-item nav-link active">Fecha: <?php echo date('d/m/Y'); ?></a>                     
         </div>
     </nav>
 
@@ -324,7 +324,7 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="">
               <i class="icon-grid menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>
